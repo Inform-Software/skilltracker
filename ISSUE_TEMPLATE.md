@@ -12,6 +12,11 @@ Als ...
 
 .. um zu ...
 
+
+## Weitere Informationen
+
+Weitere relevante Informationen
+
 # Akzeptanzkriterien
 
 * Point 1
@@ -19,7 +24,3 @@ Als ...
 *
 *
 *
-
-## Weitere Informationen
-
-Weitere relevante Informationen
