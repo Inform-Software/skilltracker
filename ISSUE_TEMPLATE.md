@@ -10,7 +10,6 @@ Als ...
 
 .. um zu ...
 
-
 ## Weitere Informationen
 
 Weitere relevante Informationen
