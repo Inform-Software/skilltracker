@@ -1,5 +1,3 @@
-# Titel
-
 ## Wer? (Rolle/Stakeholder)
 
 Als ...
@@ -17,7 +15,7 @@ Als ...
 
 Weitere relevante Informationen
 
-# Akzeptanzkriterien
+## Akzeptanzkriterien
 
 * Point 1
 *
