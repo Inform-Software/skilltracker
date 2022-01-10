@@ -1,0 +1,8 @@
+{
+  "generator-jhipster:7.3.1": {
+    "promptValues": {
+      "packageName": "de.fhaachen.skilltracker",
+      "nativeLanguage": "de"
+    }
+  }
+}
