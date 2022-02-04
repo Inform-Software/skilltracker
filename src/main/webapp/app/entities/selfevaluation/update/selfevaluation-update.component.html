@@ -1,0 +1,139 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-selfevaluation-heading"
+        data-cy="SelfevaluationCreateUpdateHeading"
+        jhiTranslate="skilltrackerApp.selfevaluation.home.createOrEditLabel"
+      >
+        Create or edit a Selfevaluation
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="skilltrackerApp.selfevaluation.value" for="field_value">Value</label>
+          <input type="number" class="form-control" name="value" id="field_value" data-cy="value" formControlName="value" />
+          <div *ngIf="editForm.get('value')!.invalid && (editForm.get('value')!.dirty || editForm.get('value')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('value')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('value')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              [translateValues]="{ min: 0 }"
+            >
+              This field should be at least 0.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('value')?.errors?.max"
+              jhiTranslate="entity.validation.max"
+              [translateValues]="{ max: 10 }"
+            >
+              This field cannot be more than 10.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('value')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="skilltrackerApp.selfevaluation.evaluated_skill" for="field_evaluated_skill"
+            >Evaluated Skill</label
+          >
+          <select
+            class="form-control"
+            id="field_evaluated_skill"
+            data-cy="evaluated_skill"
+            name="evaluated_skill"
+            formControlName="evaluated_skill"
+          >
+            <option *ngIf="!editForm.get('evaluated_skill')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                skillOption.id === editForm.get('evaluated_skill')!.value?.id ? editForm.get('evaluated_skill')!.value : skillOption
+              "
+              *ngFor="let skillOption of skillsSharedCollection; trackBy: trackSkillById"
+            >
+              {{ skillOption.name }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['evaluated_skill'])!.invalid &&
+            (editForm.get(['evaluated_skill'])!.dirty || editForm.get(['evaluated_skill'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['evaluated_skill'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="skilltrackerApp.selfevaluation.evaluating_user" for="field_evaluating_user"
+            >Evaluating User</label
+          >
+          <select
+            class="form-control"
+            id="field_evaluating_user"
+            data-cy="evaluating_user"
+            name="evaluating_user"
+            formControlName="evaluating_user"
+          >
+            <option *ngIf="!editForm.get('evaluating_user')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('evaluating_user')!.value?.id ? editForm.get('evaluating_user')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.login }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['evaluating_user'])!.invalid &&
+            (editForm.get(['evaluating_user'])!.dirty || editForm.get(['evaluating_user'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['evaluating_user'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

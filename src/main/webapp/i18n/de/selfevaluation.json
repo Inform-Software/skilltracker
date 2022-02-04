@@ -1,0 +1,26 @@
+{
+  "skilltrackerApp": {
+    "selfevaluation": {
+      "home": {
+        "title": "Selfevaluations",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Selfevaluation erstellen",
+        "createOrEditLabel": "Selfevaluation erstellen oder bearbeiten",
+        "notFound": "Keine Selfevaluations gefunden"
+      },
+      "created": "Selfevaluation erstellt mit ID {{ param }}",
+      "updated": "Selfevaluation aktualisiert mit ID {{ param }}",
+      "deleted": "Selfevaluation gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Selfevaluation {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Selfevaluation"
+      },
+      "id": "ID",
+      "value": "Value",
+      "evaluated_skill": "Evaluated Skill",
+      "evaluating_user": "Evaluating User"
+    }
+  }
+}
