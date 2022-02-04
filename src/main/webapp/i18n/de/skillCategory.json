@@ -1,0 +1,11 @@
+{
+  "skilltrackerApp": {
+    "SkillCategory": {
+      "null": "",
+      "TECHNOLOGIE_ALLGEMEIN": "TECHNOLOGIE_ALLGEMEIN",
+      "GB60_TECHNOLOGIE": "GB60_TECHNOLOGIE",
+      "VDS_V10": "VDS_V10",
+      "SYNCHROSUPPLY_V10": "SYNCHROSUPPLY_V10"
+    }
+  }
+}
