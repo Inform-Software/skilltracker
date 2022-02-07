@@ -42,6 +42,8 @@
     "clientPackageManager": "npm",
     "clientThemeVariant": "",
     "languages": ["de", "en"],
-    "enableGradleEnterprise": false
+    "enableGradleEnterprise": false,
+    "lastLiquibaseTimestamp": 1644247591000,
+    "entities": ["Skill", "Selfevaluation"]
   }
 }
