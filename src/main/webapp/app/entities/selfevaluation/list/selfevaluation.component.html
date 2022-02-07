@@ -36,11 +36,11 @@
           <th scope="col" jhiSortBy="value">
             <span jhiTranslate="skilltrackerApp.selfevaluation.value">Value</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="evaluated_skill.name">
-            <span jhiTranslate="skilltrackerApp.selfevaluation.evaluated_skill">Evaluated Skill</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="evaluatinguser.login">
+            <span jhiTranslate="skilltrackerApp.selfevaluation.evaluatinguser">Evaluatinguser</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="evaluating_user.login">
-            <span jhiTranslate="skilltrackerApp.selfevaluation.evaluating_user">Evaluating User</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="evaluatedskill.name">
+            <span jhiTranslate="skilltrackerApp.selfevaluation.evaluatedskill">Evaluatedskill</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -52,12 +52,12 @@
           </td>
           <td>{{ selfevaluation.value }}</td>
           <td>
-            <div *ngIf="selfevaluation.evaluated_skill">
-              <a [routerLink]="['/skill', selfevaluation.evaluated_skill?.id, 'view']">{{ selfevaluation.evaluated_skill?.name }}</a>
-            </div>
+            {{ selfevaluation.evaluatinguser?.login }}
           </td>
           <td>
-            {{ selfevaluation.evaluating_user?.login }}
+            <div *ngIf="selfevaluation.evaluatedskill">
+              <a [routerLink]="['/skill', selfevaluation.evaluatedskill?.id, 'view']">{{ selfevaluation.evaluatedskill?.name }}</a>
+            </div>
           </td>
           <td class="text-right">
             <div class="btn-group">

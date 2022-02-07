@@ -18,8 +18,8 @@
         "title": "Skill"
       },
       "id": "ID",
-      "name": "Name",
-      "category": "Category"
+      "category": "Category",
+      "name": "Name"
     }
   }
 }

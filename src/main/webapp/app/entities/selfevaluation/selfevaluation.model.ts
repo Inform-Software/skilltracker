@@ -1,15 +1,15 @@
-import { ISkill } from 'app/entities/skill/skill.model';
 import { IUser } from 'app/entities/user/user.model';
+import { ISkill } from 'app/entities/skill/skill.model';
 
 export interface ISelfevaluation {
   id?: number;
   value?: number;
-  evaluated_skill?: ISkill;
-  evaluating_user?: IUser;
+  evaluatinguser?: IUser;
+  evaluatedskill?: ISkill;
 }
 
 export class Selfevaluation implements ISelfevaluation {
-  constructor(public id?: number, public value?: number, public evaluated_skill?: ISkill, public evaluating_user?: IUser) {}
+  constructor(public id?: number, public value?: number, public evaluatinguser?: IUser, public evaluatedskill?: ISkill) {}
 }
 
 export function getSelfevaluationIdentifier(selfevaluation: ISelfevaluation): number | undefined {

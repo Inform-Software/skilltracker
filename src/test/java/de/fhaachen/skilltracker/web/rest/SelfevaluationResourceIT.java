@@ -66,6 +66,11 @@ class SelfevaluationResourceIT {
     public static Selfevaluation createEntity(EntityManager em) {
         Selfevaluation selfevaluation = new Selfevaluation().value(DEFAULT_VALUE);
         // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        selfevaluation.setEvaluatinguser(user);
+        // Add required entity
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
             skill = SkillResourceIT.createEntity(em);
@@ -74,12 +79,7 @@ class SelfevaluationResourceIT {
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }
-        selfevaluation.setEvaluated_skill(skill);
-        // Add required entity
-        User user = UserResourceIT.createEntity(em);
-        em.persist(user);
-        em.flush();
-        selfevaluation.setEvaluating_user(user);
+        selfevaluation.setEvaluatedskill(skill);
         return selfevaluation;
     }
 
@@ -92,6 +92,11 @@ class SelfevaluationResourceIT {
     public static Selfevaluation createUpdatedEntity(EntityManager em) {
         Selfevaluation selfevaluation = new Selfevaluation().value(UPDATED_VALUE);
         // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        selfevaluation.setEvaluatinguser(user);
+        // Add required entity
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
             skill = SkillResourceIT.createUpdatedEntity(em);
@@ -100,12 +105,7 @@ class SelfevaluationResourceIT {
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }
-        selfevaluation.setEvaluated_skill(skill);
-        // Add required entity
-        User user = UserResourceIT.createEntity(em);
-        em.persist(user);
-        em.flush();
-        selfevaluation.setEvaluating_user(user);
+        selfevaluation.setEvaluatedskill(skill);
         return selfevaluation;
     }
 

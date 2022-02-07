@@ -19,8 +19,8 @@ export class SkillUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    name: [null, [Validators.required, Validators.maxLength(70)]],
     category: [null, [Validators.required]],
+    name: [null, [Validators.required]],
   });
 
   constructor(protected skillService: SkillService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
@@ -67,8 +67,8 @@ export class SkillUpdateComponent implements OnInit {
   protected updateForm(skill: ISkill): void {
     this.editForm.patchValue({
       id: skill.id,
-      name: skill.name,
       category: skill.category,
+      name: skill.name,
     });
   }
 
@@ -76,8 +76,8 @@ export class SkillUpdateComponent implements OnInit {
     return {
       ...new Skill(),
       id: this.editForm.get(['id'])!.value,
-      name: this.editForm.get(['name'])!.value,
       category: this.editForm.get(['category'])!.value,
+      name: this.editForm.get(['name'])!.value,
     };
   }
 }

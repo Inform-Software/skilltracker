@@ -21,14 +21,13 @@ public class Skill implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 70)
-    @Column(name = "name", length = 70, nullable = false, unique = true)
-    private String name;
-
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
     private SkillCategory category;
+
+    @NotNull
+    @Column(name = "name", nullable = false)
+    private String name;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -45,19 +44,6 @@ public class Skill implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public Skill name(String name) {
-        this.setName(name);
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public SkillCategory getCategory() {
         return this.category;
     }
@@ -69,6 +55,19 @@ public class Skill implements Serializable {
 
     public void setCategory(SkillCategory category) {
         this.category = category;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Skill name(String name) {
+        this.setName(name);
+        return this;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -95,8 +94,8 @@ public class Skill implements Serializable {
     public String toString() {
         return "Skill{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
             ", category='" + getCategory() + "'" +
+            ", name='" + getName() + "'" +
             "}";
     }
 }

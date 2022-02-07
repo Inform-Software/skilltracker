@@ -7,9 +7,9 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Selfevaluation} and its DTO {@link SelfevaluationDTO}.
  */
-@Mapper(componentModel = "spring", uses = { SkillMapper.class, UserMapper.class })
+@Mapper(componentModel = "spring", uses = { UserMapper.class, SkillMapper.class })
 public interface SelfevaluationMapper extends EntityMapper<SelfevaluationDTO, Selfevaluation> {
-    @Mapping(target = "evaluated_skill", source = "evaluated_skill", qualifiedByName = "name")
-    @Mapping(target = "evaluating_user", source = "evaluating_user", qualifiedByName = "login")
+    @Mapping(target = "evaluatinguser", source = "evaluatinguser", qualifiedByName = "login")
+    @Mapping(target = "evaluatedskill", source = "evaluatedskill", qualifiedByName = "name")
     SelfevaluationDTO toDto(Selfevaluation s);
 }

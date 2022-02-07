@@ -33,11 +33,11 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class SkillResourceIT {
 
+    private static final SkillCategory DEFAULT_CATEGORY = SkillCategory.TECHNOLOGIE_ALLGEMEIN;
+    private static final SkillCategory UPDATED_CATEGORY = SkillCategory.VDS_V10;
+
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
-
-    private static final SkillCategory DEFAULT_CATEGORY = SkillCategory.TECHNOLOGIE_ALLGEMEIN;
-    private static final SkillCategory UPDATED_CATEGORY = SkillCategory.GB60_TECHNOLOGIE;
 
     private static final String ENTITY_API_URL = "/api/skills";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -66,7 +66,7 @@ class SkillResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Skill createEntity(EntityManager em) {
-        Skill skill = new Skill().name(DEFAULT_NAME).category(DEFAULT_CATEGORY);
+        Skill skill = new Skill().category(DEFAULT_CATEGORY).name(DEFAULT_NAME);
         return skill;
     }
 
@@ -77,7 +77,7 @@ class SkillResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Skill createUpdatedEntity(EntityManager em) {
-        Skill skill = new Skill().name(UPDATED_NAME).category(UPDATED_CATEGORY);
+        Skill skill = new Skill().category(UPDATED_CATEGORY).name(UPDATED_NAME);
         return skill;
     }
 
@@ -105,8 +105,8 @@ class SkillResourceIT {
         List<Skill> skillList = skillRepository.findAll();
         assertThat(skillList).hasSize(databaseSizeBeforeCreate + 1);
         Skill testSkill = skillList.get(skillList.size() - 1);
-        assertThat(testSkill.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testSkill.getCategory()).isEqualTo(DEFAULT_CATEGORY);
+        assertThat(testSkill.getName()).isEqualTo(DEFAULT_NAME);
     }
 
     @Test
@@ -135,10 +135,10 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void checkNameIsRequired() throws Exception {
+    void checkCategoryIsRequired() throws Exception {
         int databaseSizeBeforeTest = skillRepository.findAll().size();
         // set the field null
-        skill.setName(null);
+        skill.setCategory(null);
 
         // Create the Skill, which fails.
         SkillDTO skillDTO = skillMapper.toDto(skill);
@@ -158,10 +158,10 @@ class SkillResourceIT {
 
     @Test
     @Transactional
-    void checkCategoryIsRequired() throws Exception {
+    void checkNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = skillRepository.findAll().size();
         // set the field null
-        skill.setCategory(null);
+        skill.setName(null);
 
         // Create the Skill, which fails.
         SkillDTO skillDTO = skillMapper.toDto(skill);
@@ -191,8 +191,8 @@ class SkillResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(skill.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].category").value(hasItem(DEFAULT_CATEGORY.toString())));
+            .andExpect(jsonPath("$.[*].category").value(hasItem(DEFAULT_CATEGORY.toString())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
 
     @Test
@@ -207,8 +207,8 @@ class SkillResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(skill.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.category").value(DEFAULT_CATEGORY.toString()));
+            .andExpect(jsonPath("$.category").value(DEFAULT_CATEGORY.toString()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
 
     @Test
@@ -230,7 +230,7 @@ class SkillResourceIT {
         Skill updatedSkill = skillRepository.findById(skill.getId()).get();
         // Disconnect from session so that the updates on updatedSkill are not directly saved in db
         em.detach(updatedSkill);
-        updatedSkill.name(UPDATED_NAME).category(UPDATED_CATEGORY);
+        updatedSkill.category(UPDATED_CATEGORY).name(UPDATED_NAME);
         SkillDTO skillDTO = skillMapper.toDto(updatedSkill);
 
         restSkillMockMvc
@@ -246,8 +246,8 @@ class SkillResourceIT {
         List<Skill> skillList = skillRepository.findAll();
         assertThat(skillList).hasSize(databaseSizeBeforeUpdate);
         Skill testSkill = skillList.get(skillList.size() - 1);
-        assertThat(testSkill.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testSkill.getCategory()).isEqualTo(UPDATED_CATEGORY);
+        assertThat(testSkill.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test
@@ -334,7 +334,7 @@ class SkillResourceIT {
         Skill partialUpdatedSkill = new Skill();
         partialUpdatedSkill.setId(skill.getId());
 
-        partialUpdatedSkill.category(UPDATED_CATEGORY);
+        partialUpdatedSkill.name(UPDATED_NAME);
 
         restSkillMockMvc
             .perform(
@@ -349,8 +349,8 @@ class SkillResourceIT {
         List<Skill> skillList = skillRepository.findAll();
         assertThat(skillList).hasSize(databaseSizeBeforeUpdate);
         Skill testSkill = skillList.get(skillList.size() - 1);
-        assertThat(testSkill.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testSkill.getCategory()).isEqualTo(UPDATED_CATEGORY);
+        assertThat(testSkill.getCategory()).isEqualTo(DEFAULT_CATEGORY);
+        assertThat(testSkill.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test
@@ -365,7 +365,7 @@ class SkillResourceIT {
         Skill partialUpdatedSkill = new Skill();
         partialUpdatedSkill.setId(skill.getId());
 
-        partialUpdatedSkill.name(UPDATED_NAME).category(UPDATED_CATEGORY);
+        partialUpdatedSkill.category(UPDATED_CATEGORY).name(UPDATED_NAME);
 
         restSkillMockMvc
             .perform(
@@ -380,8 +380,8 @@ class SkillResourceIT {
         List<Skill> skillList = skillRepository.findAll();
         assertThat(skillList).hasSize(databaseSizeBeforeUpdate);
         Skill testSkill = skillList.get(skillList.size() - 1);
-        assertThat(testSkill.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testSkill.getCategory()).isEqualTo(UPDATED_CATEGORY);
+        assertThat(testSkill.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test

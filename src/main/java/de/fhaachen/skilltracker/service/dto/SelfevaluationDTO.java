@@ -16,9 +16,9 @@ public class SelfevaluationDTO implements Serializable {
     @Max(value = 10)
     private Integer value;
 
-    private SkillDTO evaluated_skill;
+    private UserDTO evaluatinguser;
 
-    private UserDTO evaluating_user;
+    private SkillDTO evaluatedskill;
 
     public Long getId() {
         return id;
@@ -36,20 +36,20 @@ public class SelfevaluationDTO implements Serializable {
         this.value = value;
     }
 
-    public SkillDTO getEvaluated_skill() {
-        return evaluated_skill;
+    public UserDTO getEvaluatinguser() {
+        return evaluatinguser;
     }
 
-    public void setEvaluated_skill(SkillDTO evaluated_skill) {
-        this.evaluated_skill = evaluated_skill;
+    public void setEvaluatinguser(UserDTO evaluatinguser) {
+        this.evaluatinguser = evaluatinguser;
     }
 
-    public UserDTO getEvaluating_user() {
-        return evaluating_user;
+    public SkillDTO getEvaluatedskill() {
+        return evaluatedskill;
     }
 
-    public void setEvaluating_user(UserDTO evaluating_user) {
-        this.evaluating_user = evaluating_user;
+    public void setEvaluatedskill(SkillDTO evaluatedskill) {
+        this.evaluatedskill = evaluatedskill;
     }
 
     @Override
@@ -79,8 +79,8 @@ public class SelfevaluationDTO implements Serializable {
         return "SelfevaluationDTO{" +
             "id=" + getId() +
             ", value=" + getValue() +
-            ", evaluated_skill=" + getEvaluated_skill() +
-            ", evaluating_user=" + getEvaluating_user() +
+            ", evaluatinguser=" + getEvaluatinguser() +
+            ", evaluatedskill=" + getEvaluatedskill() +
             "}";
     }
 }

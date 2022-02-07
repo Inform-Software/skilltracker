@@ -13,11 +13,10 @@ public class SkillDTO implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 70)
-    private String name;
+    private SkillCategory category;
 
     @NotNull
-    private SkillCategory category;
+    private String name;
 
     public Long getId() {
         return id;
@@ -27,20 +26,20 @@ public class SkillDTO implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public SkillCategory getCategory() {
         return category;
     }
 
     public void setCategory(SkillCategory category) {
         this.category = category;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -69,8 +68,8 @@ public class SkillDTO implements Serializable {
     public String toString() {
         return "SkillDTO{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
             ", category='" + getCategory() + "'" +
+            ", name='" + getName() + "'" +
             "}";
     }
 }

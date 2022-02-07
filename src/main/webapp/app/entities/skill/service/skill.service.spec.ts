@@ -22,8 +22,8 @@ describe('Skill Service', () => {
 
     elemDefault = {
       id: 0,
-      name: 'AAAAAAA',
       category: SkillCategory.TECHNOLOGIE_ALLGEMEIN,
+      name: 'AAAAAAA',
     };
   });
 
@@ -59,8 +59,8 @@ describe('Skill Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          name: 'BBBBBB',
           category: 'BBBBBB',
+          name: 'BBBBBB',
         },
         elemDefault
       );
@@ -77,7 +77,7 @@ describe('Skill Service', () => {
     it('should partial update a Skill', () => {
       const patchObject = Object.assign(
         {
-          category: 'BBBBBB',
+          name: 'BBBBBB',
         },
         new Skill()
       );
@@ -97,8 +97,8 @@ describe('Skill Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          name: 'BBBBBB',
           category: 'BBBBBB',
+          name: 'BBBBBB',
         },
         elemDefault
       );

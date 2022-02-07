@@ -7,10 +7,10 @@ import { finalize, map } from 'rxjs/operators';
 
 import { ISelfevaluation, Selfevaluation } from '../selfevaluation.model';
 import { SelfevaluationService } from '../service/selfevaluation.service';
-import { ISkill } from 'app/entities/skill/skill.model';
-import { SkillService } from 'app/entities/skill/service/skill.service';
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
+import { ISkill } from 'app/entities/skill/skill.model';
+import { SkillService } from 'app/entities/skill/service/skill.service';
 
 @Component({
   selector: 'jhi-selfevaluation-update',
@@ -19,20 +19,20 @@ import { UserService } from 'app/entities/user/user.service';
 export class SelfevaluationUpdateComponent implements OnInit {
   isSaving = false;
 
-  skillsSharedCollection: ISkill[] = [];
   usersSharedCollection: IUser[] = [];
+  skillsSharedCollection: ISkill[] = [];
 
   editForm = this.fb.group({
     id: [],
     value: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
-    evaluated_skill: [null, Validators.required],
-    evaluating_user: [null, Validators.required],
+    evaluatinguser: [null, Validators.required],
+    evaluatedskill: [null, Validators.required],
   });
 
   constructor(
     protected selfevaluationService: SelfevaluationService,
-    protected skillService: SkillService,
     protected userService: UserService,
+    protected skillService: SkillService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -59,11 +59,11 @@ export class SelfevaluationUpdateComponent implements OnInit {
     }
   }
 
-  trackSkillById(index: number, item: ISkill): number {
+  trackUserById(index: number, item: IUser): number {
     return item.id!;
   }
 
-  trackUserById(index: number, item: IUser): number {
+  trackSkillById(index: number, item: ISkill): number {
     return item.id!;
   }
 
@@ -90,29 +90,29 @@ export class SelfevaluationUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: selfevaluation.id,
       value: selfevaluation.value,
-      evaluated_skill: selfevaluation.evaluated_skill,
-      evaluating_user: selfevaluation.evaluating_user,
+      evaluatinguser: selfevaluation.evaluatinguser,
+      evaluatedskill: selfevaluation.evaluatedskill,
     });
 
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, selfevaluation.evaluatinguser);
     this.skillsSharedCollection = this.skillService.addSkillToCollectionIfMissing(
       this.skillsSharedCollection,
-      selfevaluation.evaluated_skill
+      selfevaluation.evaluatedskill
     );
-    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, selfevaluation.evaluating_user);
   }
 
   protected loadRelationshipsOptions(): void {
-    this.skillService
-      .query()
-      .pipe(map((res: HttpResponse<ISkill[]>) => res.body ?? []))
-      .pipe(map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing(skills, this.editForm.get('evaluated_skill')!.value)))
-      .subscribe((skills: ISkill[]) => (this.skillsSharedCollection = skills));
-
     this.userService
       .query()
       .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
-      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('evaluating_user')!.value)))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('evaluatinguser')!.value)))
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
+
+    this.skillService
+      .query()
+      .pipe(map((res: HttpResponse<ISkill[]>) => res.body ?? []))
+      .pipe(map((skills: ISkill[]) => this.skillService.addSkillToCollectionIfMissing(skills, this.editForm.get('evaluatedskill')!.value)))
+      .subscribe((skills: ISkill[]) => (this.skillsSharedCollection = skills));
   }
 
   protected createFromForm(): ISelfevaluation {
@@ -120,8 +120,8 @@ export class SelfevaluationUpdateComponent implements OnInit {
       ...new Selfevaluation(),
       id: this.editForm.get(['id'])!.value,
       value: this.editForm.get(['value'])!.value,
-      evaluated_skill: this.editForm.get(['evaluated_skill'])!.value,
-      evaluating_user: this.editForm.get(['evaluating_user'])!.value,
+      evaluatinguser: this.editForm.get(['evaluatinguser'])!.value,
+      evaluatedskill: this.editForm.get(['evaluatedskill'])!.value,
     };
   }
 }

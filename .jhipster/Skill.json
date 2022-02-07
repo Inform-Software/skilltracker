@@ -1,24 +1,23 @@
 {
   "fields": [
     {
-      "fieldName": "name",
-      "fieldType": "String",
-      "fieldValidateRules": ["required", "unique", "maxlength"],
-      "fieldValidateRulesMaxlength": "70"
-    },
-    {
       "fieldName": "category",
       "fieldType": "SkillCategory",
-      "fieldValues": "TECHNOLOGIE_ALLGEMEIN,GB60_TECHNOLOGIE,VDS_V10,SYNCHROSUPPLY_V10",
+      "fieldValues": "TECHNOLOGIE_ALLGEMEIN,VDS_V10,GB60_TECHNOLOGIE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
       "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [],
-  "service": "serviceImpl",
+  "service": "serviceClass",
   "dto": "mapstruct",
   "jpaMetamodelFiltering": false,
   "readOnly": false,
   "pagination": "pagination",
   "name": "Skill",
-  "changelogDate": "20220204140923"
+  "changelogDate": "20220207151837"
 }
