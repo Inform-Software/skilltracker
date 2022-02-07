@@ -1,0 +1,63 @@
+application {
+  config {
+    applicationType monolith
+    authenticationType session
+    baseName skilltracker
+    blueprints []
+    buildTool maven
+    cacheProvider no
+    clientFramework angularX
+    clientPackageManager npm
+    clientTheme none
+    creationTimestamp 1641809640386
+    databaseType sql
+    devDatabaseType h2Disk
+    dtoSuffix DTO
+    enableGradleEnterprise false
+    enableHibernateCache false
+    enableSwaggerCodegen true
+    enableTranslation true
+    gradleEnterpriseHost ""
+    jhiPrefix jhi
+    jhipsterVersion "7.3.1"
+    languages [de, en]
+    messageBroker false
+    nativeLanguage de
+    otherModules []
+    packageName de.fhaachen.skilltracker
+    prodDatabaseType postgresql
+    reactive false
+    rememberMeKey "941263fdf1b14c5518a342e70cda762f921c3d864add7b0a83fb126c29ebed194744d241bd0bf6eda7a223e44687aca8a6e0"
+    searchEngine false
+    serverPort 8080
+    serviceDiscoveryType no
+    skipClient false
+    skipServer false
+    skipUserManagement false
+    testFrameworks []
+    websocket false
+    withAdminUi true
+  }
+
+  entities Bewertung, Skill
+}
+
+entity Bewertung {
+  selbstbewertung Integer min(0) max(10)
+}
+entity Skill {
+  name String
+  kategorie category
+}
+enum category {
+  TECHNOLOGIE_ALLGEMEIN,
+  GB60_TECHNOLOGIE,
+  VDS_V10,
+  SYNCHROSUPPLY_V10
+}
+
+relationship ManyToMany {
+  Bewertung{beschreibt(name) required} to Skill
+}
+
+paginate Bewertung, Skill with pagination
