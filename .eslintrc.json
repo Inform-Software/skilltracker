@@ -80,6 +80,8 @@
     "@typescript-eslint/prefer-nullish-coalescing": "error",
     "@typescript-eslint/prefer-optional-chain": "error",
     "@typescript-eslint/unbound-method": "off",
+    "@angular-eslint/no-empty-lifecycle-method": "off",
+    "@angular-eslint/no-empty-function": "off",
     "arrow-body-style": "error",
     "curly": "error",
     "eqeqeq": ["error", "always", { "null": "ignore" }],

@@ -9,7 +9,6 @@ import { TranslateModule, TranslateService, TranslateLoader, MissingTranslationH
 import { NgxWebstorageModule, SessionStorageService } from 'ngx-webstorage';
 import * as dayjs from 'dayjs';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
 import { SharedModule } from 'app/shared/shared.module';
@@ -27,6 +26,11 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
+import { BasedataComponent } from './basedata/basedata.component';
+import { BasedataRoutingModule } from './basedata/basedata-routing.module';
+import { MyskillsComponent } from './myskills/myskills.component';
+import { MyskillsRoutingModule } from './myskills/myskills.routing.module';
+import { ButtonDirective } from './basedata/button.directive';
 
 @NgModule({
   imports: [
@@ -35,6 +39,8 @@ import { ErrorComponent } from './layouts/error/error.component';
     HomeModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     EntityRoutingModule,
+    BasedataRoutingModule,
+    MyskillsRoutingModule,
     AppRoutingModule,
     // Set this to true to enable service worker (PWA)
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
@@ -58,7 +64,17 @@ import { ErrorComponent } from './layouts/error/error.component';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent,
+    BasedataComponent,
+    MyskillsComponent,
+    ButtonDirective,
+  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {

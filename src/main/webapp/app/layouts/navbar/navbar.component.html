@@ -26,6 +26,23 @@
           </span>
         </a>
       </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="./basedata" (click)="collapseNavbar()">
+          <span>
+            <fa-icon icon="database"></fa-icon>
+            <span jhiTranslate="global.menu.basedata">Basedata</span>
+          </span>
+        </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="./myskills" (click)="collapseNavbar()">
+          <span>
+            <fa-icon icon="user-check"></fa-icon>
+            <span jhiTranslate="global.menu.myskills">MySkills</span>
+          </span>
+        </a>
+      </li>
+
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
       <li
         *ngSwitchCase="true"

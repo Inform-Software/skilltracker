@@ -5,6 +5,11 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forChild([
       {
+        path: 'basedata/skill',
+        data: { pageTitle: 'skilltrackerApp.skill.home.title' },
+        loadChildren: () => import('./skill/skill.module').then(m => m.SkillModule),
+      },
+      {
         path: 'skill',
         data: { pageTitle: 'skilltrackerApp.skill.home.title' },
         loadChildren: () => import('./skill/skill.module').then(m => m.SkillModule),
