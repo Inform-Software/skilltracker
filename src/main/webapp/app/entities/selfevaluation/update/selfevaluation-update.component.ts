@@ -26,8 +26,10 @@ export class SelfevaluationUpdateComponent implements OnInit {
     id: [],
     value: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
     evaluatedSkill: [null, Validators.required],
-    evaluatingUser: [null, Validators.required],
+    evaluatingUser: [null],
   });
+
+  private dummyUser: IUser = { id: 0, login: 'login' };
 
   constructor(
     protected selfevaluationService: SelfevaluationService,
@@ -121,7 +123,7 @@ export class SelfevaluationUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       value: this.editForm.get(['value'])!.value,
       evaluatedSkill: this.editForm.get(['evaluatedSkill'])!.value,
-      evaluatingUser: this.editForm.get(['evaluatingUser'])!.value,
+      evaluatingUser: this.dummyUser,
     };
   }
 }
