@@ -1,0 +1,24 @@
+{
+  "fields": [
+    {
+      "fieldName": "category",
+      "fieldType": "SkillCategory",
+      "fieldValues": "TECHNOLOGIE_ALLGEMEIN,GB60_TECHNOLOGIE,VDS_V10,SYNCROSUPPLY_V10,SYNCROTESS_V10,APPUSECASES,METHODEN,TOOLS",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    }
+  ],
+  "relationships": [],
+  "service": "serviceClass",
+  "dto": "no",
+  "jpaMetamodelFiltering": false,
+  "readOnly": false,
+  "pagination": "no",
+  "name": "Skill",
+  "changelogDate": "20220210082736"
+}
