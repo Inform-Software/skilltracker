@@ -2,13 +2,10 @@ package de.fhaachen.skilltracker.service;
 
 import de.fhaachen.skilltracker.domain.Skill;
 import de.fhaachen.skilltracker.repository.SkillRepository;
-import de.fhaachen.skilltracker.service.dto.SkillDTO;
-import de.fhaachen.skilltracker.service.mapper.SkillMapper;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,56 +20,54 @@ public class SkillService {
 
     private final SkillRepository skillRepository;
 
-    private final SkillMapper skillMapper;
-
-    public SkillService(SkillRepository skillRepository, SkillMapper skillMapper) {
+    public SkillService(SkillRepository skillRepository) {
         this.skillRepository = skillRepository;
-        this.skillMapper = skillMapper;
     }
 
     /**
      * Save a skill.
      *
-     * @param skillDTO the entity to save.
+     * @param skill the entity to save.
      * @return the persisted entity.
      */
-    public SkillDTO save(SkillDTO skillDTO) {
-        log.debug("Request to save Skill : {}", skillDTO);
-        Skill skill = skillMapper.toEntity(skillDTO);
-        skill = skillRepository.save(skill);
-        return skillMapper.toDto(skill);
+    public Skill save(Skill skill) {
+        log.debug("Request to save Skill : {}", skill);
+        return skillRepository.save(skill);
     }
 
     /**
      * Partially update a skill.
      *
-     * @param skillDTO the entity to update partially.
+     * @param skill the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<SkillDTO> partialUpdate(SkillDTO skillDTO) {
-        log.debug("Request to partially update Skill : {}", skillDTO);
+    public Optional<Skill> partialUpdate(Skill skill) {
+        log.debug("Request to partially update Skill : {}", skill);
 
         return skillRepository
-            .findById(skillDTO.getId())
+            .findById(skill.getId())
             .map(existingSkill -> {
-                skillMapper.partialUpdate(existingSkill, skillDTO);
+                if (skill.getCategory() != null) {
+                    existingSkill.setCategory(skill.getCategory());
+                }
+                if (skill.getName() != null) {
+                    existingSkill.setName(skill.getName());
+                }
 
                 return existingSkill;
             })
-            .map(skillRepository::save)
-            .map(skillMapper::toDto);
+            .map(skillRepository::save);
     }
 
     /**
      * Get all the skills.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public Page<SkillDTO> findAll(Pageable pageable) {
+    public List<Skill> findAll() {
         log.debug("Request to get all Skills");
-        return skillRepository.findAll(pageable).map(skillMapper::toDto);
+        return skillRepository.findAll();
     }
 
     /**
@@ -82,9 +77,9 @@ public class SkillService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<SkillDTO> findOne(Long id) {
+    public Optional<Skill> findOne(Long id) {
         log.debug("Request to get Skill : {}", id);
-        return skillRepository.findById(id).map(skillMapper::toDto);
+        return skillRepository.findById(id);
     }
 
     /**

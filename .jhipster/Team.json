@@ -1,0 +1,29 @@
+{
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "0",
+      "fieldValidateRulesMaxlength": "50"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipName": "teamMember",
+      "otherEntityName": "user",
+      "relationshipType": "many-to-many",
+      "relationshipValidateRules": [],
+      "otherEntityField": "login",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "team"
+    }
+  ],
+  "service": "serviceClass",
+  "dto": "no",
+  "jpaMetamodelFiltering": false,
+  "readOnly": false,
+  "pagination": "no",
+  "name": "Team",
+  "changelogDate": "20220210083901"
+}

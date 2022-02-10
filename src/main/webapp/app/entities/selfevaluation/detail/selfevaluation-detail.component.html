@@ -18,15 +18,15 @@
         <dd>
           <span>{{ selfevaluation.value }}</span>
         </dd>
-        <dt><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatinguser">Evaluatinguser</span></dt>
+        <dt><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatedSkill">Evaluated Skill</span></dt>
         <dd>
-          <span>{{ selfevaluation.evaluatinguser?.login }}</span>
-        </dd>
-        <dt><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatedskill">Evaluatedskill</span></dt>
-        <dd>
-          <div *ngIf="selfevaluation.evaluatedskill">
-            <a [routerLink]="['/skill', selfevaluation.evaluatedskill?.id, 'view']">{{ selfevaluation.evaluatedskill?.name }}</a>
+          <div *ngIf="selfevaluation.evaluatedSkill">
+            <a [routerLink]="['/skill', selfevaluation.evaluatedSkill?.id, 'view']">{{ selfevaluation.evaluatedSkill?.name }}</a>
           </div>
+        </dd>
+        <dt><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatingUser">Evaluating User</span></dt>
+        <dd>
+          <span>{{ selfevaluation.evaluatingUser?.login }}</span>
         </dd>
       </dl>
 

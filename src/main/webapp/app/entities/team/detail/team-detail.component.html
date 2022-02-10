@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="team">
+      <h2 data-cy="teamDetailsHeading"><span jhiTranslate="skilltrackerApp.team.detail.title">Team</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ team.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="skilltrackerApp.team.name">Name</span></dt>
+        <dd>
+          <span>{{ team.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="skilltrackerApp.team.teamMember">Team Member</span></dt>
+        <dd>
+          <span *ngFor="let teamMember of team.teamMembers; let last = last"> {{ teamMember.login }}{{ last ? '' : ', ' }} </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/team', team.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

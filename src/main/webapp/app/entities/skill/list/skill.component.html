@@ -3,7 +3,7 @@
     <span jhiTranslate="skilltrackerApp.skill.home.title">Skills</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="skilltrackerApp.skill.home.refreshListLabel">Refresh List</span>
       </button>
@@ -31,12 +31,10 @@
   <div class="table-responsive" id="entities" *ngIf="skills && skills.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="category">
-            <span jhiTranslate="skilltrackerApp.skill.category">Category</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="name"><span jhiTranslate="skilltrackerApp.skill.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="skilltrackerApp.skill.category">Category</span></th>
+          <th scope="col"><span jhiTranslate="skilltrackerApp.skill.name">Name</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -68,23 +66,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <div *ngIf="skills && skills.length > 0">
-    <div class="row justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
-    </div>
-
-    <div class="row justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="ngbPaginationPage"
-        [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="loadPage($event)"
-      ></ngb-pagination>
-    </div>
   </div>
 </div>

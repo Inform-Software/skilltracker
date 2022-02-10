@@ -10,8 +10,6 @@ import de.fhaachen.skilltracker.IntegrationTest;
 import de.fhaachen.skilltracker.domain.Skill;
 import de.fhaachen.skilltracker.domain.enumeration.SkillCategory;
 import de.fhaachen.skilltracker.repository.SkillRepository;
-import de.fhaachen.skilltracker.service.dto.SkillDTO;
-import de.fhaachen.skilltracker.service.mapper.SkillMapper;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -34,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 class SkillResourceIT {
 
     private static final SkillCategory DEFAULT_CATEGORY = SkillCategory.TECHNOLOGIE_ALLGEMEIN;
-    private static final SkillCategory UPDATED_CATEGORY = SkillCategory.VDS_V10;
+    private static final SkillCategory UPDATED_CATEGORY = SkillCategory.GB60_TECHNOLOGIE;
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -47,9 +45,6 @@ class SkillResourceIT {
 
     @Autowired
     private SkillRepository skillRepository;
-
-    @Autowired
-    private SkillMapper skillMapper;
 
     @Autowired
     private EntityManager em;
@@ -91,13 +86,9 @@ class SkillResourceIT {
     void createSkill() throws Exception {
         int databaseSizeBeforeCreate = skillRepository.findAll().size();
         // Create the Skill
-        SkillDTO skillDTO = skillMapper.toDto(skill);
         restSkillMockMvc
             .perform(
-                post(ENTITY_API_URL)
-                    .with(csrf())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(skillDTO))
+                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(skill))
             )
             .andExpect(status().isCreated());
 
@@ -114,17 +105,13 @@ class SkillResourceIT {
     void createSkillWithExistingId() throws Exception {
         // Create the Skill with an existing ID
         skill.setId(1L);
-        SkillDTO skillDTO = skillMapper.toDto(skill);
 
         int databaseSizeBeforeCreate = skillRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSkillMockMvc
             .perform(
-                post(ENTITY_API_URL)
-                    .with(csrf())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(skillDTO))
+                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(skill))
             )
             .andExpect(status().isBadRequest());
 
@@ -141,14 +128,10 @@ class SkillResourceIT {
         skill.setCategory(null);
 
         // Create the Skill, which fails.
-        SkillDTO skillDTO = skillMapper.toDto(skill);
 
         restSkillMockMvc
             .perform(
-                post(ENTITY_API_URL)
-                    .with(csrf())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(skillDTO))
+                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(skill))
             )
             .andExpect(status().isBadRequest());
 
@@ -164,14 +147,10 @@ class SkillResourceIT {
         skill.setName(null);
 
         // Create the Skill, which fails.
-        SkillDTO skillDTO = skillMapper.toDto(skill);
 
         restSkillMockMvc
             .perform(
-                post(ENTITY_API_URL)
-                    .with(csrf())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(skillDTO))
+                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(skill))
             )
             .andExpect(status().isBadRequest());
 
@@ -231,14 +210,13 @@ class SkillResourceIT {
         // Disconnect from session so that the updates on updatedSkill are not directly saved in db
         em.detach(updatedSkill);
         updatedSkill.category(UPDATED_CATEGORY).name(UPDATED_NAME);
-        SkillDTO skillDTO = skillMapper.toDto(updatedSkill);
 
         restSkillMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, skillDTO.getId())
+                put(ENTITY_API_URL_ID, updatedSkill.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(skillDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(updatedSkill))
             )
             .andExpect(status().isOk());
 
@@ -256,16 +234,13 @@ class SkillResourceIT {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
 
-        // Create the Skill
-        SkillDTO skillDTO = skillMapper.toDto(skill);
-
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restSkillMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, skillDTO.getId())
+                put(ENTITY_API_URL_ID, skill.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(skillDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(skill))
             )
             .andExpect(status().isBadRequest());
 
@@ -280,16 +255,13 @@ class SkillResourceIT {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
 
-        // Create the Skill
-        SkillDTO skillDTO = skillMapper.toDto(skill);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSkillMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(skillDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(skill))
             )
             .andExpect(status().isBadRequest());
 
@@ -304,16 +276,10 @@ class SkillResourceIT {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
 
-        // Create the Skill
-        SkillDTO skillDTO = skillMapper.toDto(skill);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSkillMockMvc
             .perform(
-                put(ENTITY_API_URL)
-                    .with(csrf())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(skillDTO))
+                put(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(skill))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -390,16 +356,13 @@ class SkillResourceIT {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
 
-        // Create the Skill
-        SkillDTO skillDTO = skillMapper.toDto(skill);
-
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restSkillMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, skillDTO.getId())
+                patch(ENTITY_API_URL_ID, skill.getId())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(skillDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(skill))
             )
             .andExpect(status().isBadRequest());
 
@@ -414,16 +377,13 @@ class SkillResourceIT {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
 
-        // Create the Skill
-        SkillDTO skillDTO = skillMapper.toDto(skill);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSkillMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(skillDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(skill))
             )
             .andExpect(status().isBadRequest());
 
@@ -438,16 +398,13 @@ class SkillResourceIT {
         int databaseSizeBeforeUpdate = skillRepository.findAll().size();
         skill.setId(count.incrementAndGet());
 
-        // Create the Skill
-        SkillDTO skillDTO = skillMapper.toDto(skill);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSkillMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(skillDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(skill))
             )
             .andExpect(status().isMethodNotAllowed());
 

@@ -47,54 +47,19 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="skilltrackerApp.selfevaluation.evaluatinguser" for="field_evaluatinguser"
-            >Evaluatinguser</label
+          <label class="form-control-label" jhiTranslate="skilltrackerApp.selfevaluation.evaluatedSkill" for="field_evaluatedSkill"
+            >Evaluated Skill</label
           >
           <select
             class="form-control"
-            id="field_evaluatinguser"
-            data-cy="evaluatinguser"
-            name="evaluatinguser"
-            formControlName="evaluatinguser"
+            id="field_evaluatedSkill"
+            data-cy="evaluatedSkill"
+            name="evaluatedSkill"
+            formControlName="evaluatedSkill"
           >
-            <option *ngIf="!editForm.get('evaluatinguser')!.value" [ngValue]="null" selected></option>
+            <option *ngIf="!editForm.get('evaluatedSkill')!.value" [ngValue]="null" selected></option>
             <option
-              [ngValue]="userOption.id === editForm.get('evaluatinguser')!.value?.id ? editForm.get('evaluatinguser')!.value : userOption"
-              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
-            >
-              {{ userOption.login }}
-            </option>
-          </select>
-        </div>
-        <div
-          *ngIf="
-            editForm.get(['evaluatinguser'])!.invalid &&
-            (editForm.get(['evaluatinguser'])!.dirty || editForm.get(['evaluatinguser'])!.touched)
-          "
-        >
-          <small
-            class="form-text text-danger"
-            *ngIf="editForm.get(['evaluatinguser'])?.errors?.required"
-            jhiTranslate="entity.validation.required"
-          >
-            This field is required.
-          </small>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="skilltrackerApp.selfevaluation.evaluatedskill" for="field_evaluatedskill"
-            >Evaluatedskill</label
-          >
-          <select
-            class="form-control"
-            id="field_evaluatedskill"
-            data-cy="evaluatedskill"
-            name="evaluatedskill"
-            formControlName="evaluatedskill"
-          >
-            <option *ngIf="!editForm.get('evaluatedskill')!.value" [ngValue]="null" selected></option>
-            <option
-              [ngValue]="skillOption.id === editForm.get('evaluatedskill')!.value?.id ? editForm.get('evaluatedskill')!.value : skillOption"
+              [ngValue]="skillOption.id === editForm.get('evaluatedSkill')!.value?.id ? editForm.get('evaluatedSkill')!.value : skillOption"
               *ngFor="let skillOption of skillsSharedCollection; trackBy: trackSkillById"
             >
               {{ skillOption.name }}
@@ -103,13 +68,48 @@
         </div>
         <div
           *ngIf="
-            editForm.get(['evaluatedskill'])!.invalid &&
-            (editForm.get(['evaluatedskill'])!.dirty || editForm.get(['evaluatedskill'])!.touched)
+            editForm.get(['evaluatedSkill'])!.invalid &&
+            (editForm.get(['evaluatedSkill'])!.dirty || editForm.get(['evaluatedSkill'])!.touched)
           "
         >
           <small
             class="form-text text-danger"
-            *ngIf="editForm.get(['evaluatedskill'])?.errors?.required"
+            *ngIf="editForm.get(['evaluatedSkill'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="skilltrackerApp.selfevaluation.evaluatingUser" for="field_evaluatingUser"
+            >Evaluating User</label
+          >
+          <select
+            class="form-control"
+            id="field_evaluatingUser"
+            data-cy="evaluatingUser"
+            name="evaluatingUser"
+            formControlName="evaluatingUser"
+          >
+            <option *ngIf="!editForm.get('evaluatingUser')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('evaluatingUser')!.value?.id ? editForm.get('evaluatingUser')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.login }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['evaluatingUser'])!.invalid &&
+            (editForm.get(['evaluatingUser'])!.dirty || editForm.get(['evaluatingUser'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['evaluatingUser'])?.errors?.required"
             jhiTranslate="entity.validation.required"
           >
             This field is required.

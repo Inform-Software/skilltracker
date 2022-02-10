@@ -26,7 +26,8 @@ public class Skill implements Serializable {
     private SkillCategory category;
 
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Size(max = 50)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

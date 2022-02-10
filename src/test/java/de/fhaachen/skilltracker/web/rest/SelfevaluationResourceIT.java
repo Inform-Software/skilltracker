@@ -11,8 +11,6 @@ import de.fhaachen.skilltracker.domain.Selfevaluation;
 import de.fhaachen.skilltracker.domain.Skill;
 import de.fhaachen.skilltracker.domain.User;
 import de.fhaachen.skilltracker.repository.SelfevaluationRepository;
-import de.fhaachen.skilltracker.service.dto.SelfevaluationDTO;
-import de.fhaachen.skilltracker.service.mapper.SelfevaluationMapper;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -47,9 +45,6 @@ class SelfevaluationResourceIT {
     private SelfevaluationRepository selfevaluationRepository;
 
     @Autowired
-    private SelfevaluationMapper selfevaluationMapper;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
@@ -66,11 +61,6 @@ class SelfevaluationResourceIT {
     public static Selfevaluation createEntity(EntityManager em) {
         Selfevaluation selfevaluation = new Selfevaluation().value(DEFAULT_VALUE);
         // Add required entity
-        User user = UserResourceIT.createEntity(em);
-        em.persist(user);
-        em.flush();
-        selfevaluation.setEvaluatinguser(user);
-        // Add required entity
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
             skill = SkillResourceIT.createEntity(em);
@@ -79,7 +69,12 @@ class SelfevaluationResourceIT {
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }
-        selfevaluation.setEvaluatedskill(skill);
+        selfevaluation.setEvaluatedSkill(skill);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        selfevaluation.setEvaluatingUser(user);
         return selfevaluation;
     }
 
@@ -92,11 +87,6 @@ class SelfevaluationResourceIT {
     public static Selfevaluation createUpdatedEntity(EntityManager em) {
         Selfevaluation selfevaluation = new Selfevaluation().value(UPDATED_VALUE);
         // Add required entity
-        User user = UserResourceIT.createEntity(em);
-        em.persist(user);
-        em.flush();
-        selfevaluation.setEvaluatinguser(user);
-        // Add required entity
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
             skill = SkillResourceIT.createUpdatedEntity(em);
@@ -105,7 +95,12 @@ class SelfevaluationResourceIT {
         } else {
             skill = TestUtil.findAll(em, Skill.class).get(0);
         }
-        selfevaluation.setEvaluatedskill(skill);
+        selfevaluation.setEvaluatedSkill(skill);
+        // Add required entity
+        User user = UserResourceIT.createEntity(em);
+        em.persist(user);
+        em.flush();
+        selfevaluation.setEvaluatingUser(user);
         return selfevaluation;
     }
 
@@ -119,13 +114,12 @@ class SelfevaluationResourceIT {
     void createSelfevaluation() throws Exception {
         int databaseSizeBeforeCreate = selfevaluationRepository.findAll().size();
         // Create the Selfevaluation
-        SelfevaluationDTO selfevaluationDTO = selfevaluationMapper.toDto(selfevaluation);
         restSelfevaluationMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(selfevaluationDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(selfevaluation))
             )
             .andExpect(status().isCreated());
 
@@ -141,7 +135,6 @@ class SelfevaluationResourceIT {
     void createSelfevaluationWithExistingId() throws Exception {
         // Create the Selfevaluation with an existing ID
         selfevaluation.setId(1L);
-        SelfevaluationDTO selfevaluationDTO = selfevaluationMapper.toDto(selfevaluation);
 
         int databaseSizeBeforeCreate = selfevaluationRepository.findAll().size();
 
@@ -151,7 +144,7 @@ class SelfevaluationResourceIT {
                 post(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(selfevaluationDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(selfevaluation))
             )
             .andExpect(status().isBadRequest());
 
@@ -168,14 +161,13 @@ class SelfevaluationResourceIT {
         selfevaluation.setValue(null);
 
         // Create the Selfevaluation, which fails.
-        SelfevaluationDTO selfevaluationDTO = selfevaluationMapper.toDto(selfevaluation);
 
         restSelfevaluationMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(selfevaluationDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(selfevaluation))
             )
             .andExpect(status().isBadRequest());
 
@@ -233,14 +225,13 @@ class SelfevaluationResourceIT {
         // Disconnect from session so that the updates on updatedSelfevaluation are not directly saved in db
         em.detach(updatedSelfevaluation);
         updatedSelfevaluation.value(UPDATED_VALUE);
-        SelfevaluationDTO selfevaluationDTO = selfevaluationMapper.toDto(updatedSelfevaluation);
 
         restSelfevaluationMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, selfevaluationDTO.getId())
+                put(ENTITY_API_URL_ID, updatedSelfevaluation.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(selfevaluationDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(updatedSelfevaluation))
             )
             .andExpect(status().isOk());
 
@@ -257,16 +248,13 @@ class SelfevaluationResourceIT {
         int databaseSizeBeforeUpdate = selfevaluationRepository.findAll().size();
         selfevaluation.setId(count.incrementAndGet());
 
-        // Create the Selfevaluation
-        SelfevaluationDTO selfevaluationDTO = selfevaluationMapper.toDto(selfevaluation);
-
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restSelfevaluationMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, selfevaluationDTO.getId())
+                put(ENTITY_API_URL_ID, selfevaluation.getId())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(selfevaluationDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(selfevaluation))
             )
             .andExpect(status().isBadRequest());
 
@@ -281,16 +269,13 @@ class SelfevaluationResourceIT {
         int databaseSizeBeforeUpdate = selfevaluationRepository.findAll().size();
         selfevaluation.setId(count.incrementAndGet());
 
-        // Create the Selfevaluation
-        SelfevaluationDTO selfevaluationDTO = selfevaluationMapper.toDto(selfevaluation);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSelfevaluationMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(selfevaluationDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(selfevaluation))
             )
             .andExpect(status().isBadRequest());
 
@@ -305,16 +290,13 @@ class SelfevaluationResourceIT {
         int databaseSizeBeforeUpdate = selfevaluationRepository.findAll().size();
         selfevaluation.setId(count.incrementAndGet());
 
-        // Create the Selfevaluation
-        SelfevaluationDTO selfevaluationDTO = selfevaluationMapper.toDto(selfevaluation);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSelfevaluationMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(selfevaluationDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(selfevaluation))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -387,16 +369,13 @@ class SelfevaluationResourceIT {
         int databaseSizeBeforeUpdate = selfevaluationRepository.findAll().size();
         selfevaluation.setId(count.incrementAndGet());
 
-        // Create the Selfevaluation
-        SelfevaluationDTO selfevaluationDTO = selfevaluationMapper.toDto(selfevaluation);
-
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restSelfevaluationMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, selfevaluationDTO.getId())
+                patch(ENTITY_API_URL_ID, selfevaluation.getId())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(selfevaluationDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(selfevaluation))
             )
             .andExpect(status().isBadRequest());
 
@@ -411,16 +390,13 @@ class SelfevaluationResourceIT {
         int databaseSizeBeforeUpdate = selfevaluationRepository.findAll().size();
         selfevaluation.setId(count.incrementAndGet());
 
-        // Create the Selfevaluation
-        SelfevaluationDTO selfevaluationDTO = selfevaluationMapper.toDto(selfevaluation);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSelfevaluationMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(selfevaluationDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(selfevaluation))
             )
             .andExpect(status().isBadRequest());
 
@@ -435,16 +411,13 @@ class SelfevaluationResourceIT {
         int databaseSizeBeforeUpdate = selfevaluationRepository.findAll().size();
         selfevaluation.setId(count.incrementAndGet());
 
-        // Create the Selfevaluation
-        SelfevaluationDTO selfevaluationDTO = selfevaluationMapper.toDto(selfevaluation);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSelfevaluationMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .with(csrf())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(selfevaluationDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(selfevaluation))
             )
             .andExpect(status().isMethodNotAllowed());
 

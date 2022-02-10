@@ -1,0 +1,74 @@
+application {
+  config {
+    applicationType monolith
+    authenticationType session
+    baseName skilltracker
+    blueprints []
+    buildTool maven
+    cacheProvider no
+    clientFramework angularX
+    clientPackageManager npm
+    clientTheme none
+    creationTimestamp 1641809640386
+    databaseType sql
+    devDatabaseType h2Disk
+    dtoSuffix DTO
+    enableGradleEnterprise false
+    enableHibernateCache false
+    enableSwaggerCodegen true
+    enableTranslation true
+    gradleEnterpriseHost ""
+    jhiPrefix jhi
+    jhipsterVersion "7.3.1"
+    languages [de, en]
+    messageBroker false
+    nativeLanguage de
+    otherModules []
+    packageName de.fhaachen.skilltracker
+    prodDatabaseType postgresql
+    reactive false
+    rememberMeKey "941263fdf1b14c5518a342e70cda762f921c3d864add7b0a83fb126c29ebed194744d241bd0bf6eda7a223e44687aca8a6e0"
+    searchEngine false
+    serverPort 8080
+    serviceDiscoveryType no
+    skipClient false
+    skipServer false
+    skipUserManagement false
+    testFrameworks []
+    websocket false
+    withAdminUi true
+  }
+
+  entities Selfevaluation, Skill, Team
+}
+
+entity Selfevaluation {
+  value Integer required min(0) max(10)
+}
+entity Skill {
+  category SkillCategory required
+  name String required maxlength(50)
+}
+entity Team {
+  name String required unique minlength(0) maxlength(50)
+}
+enum SkillCategory {
+  TECHNOLOGIE_ALLGEMEIN,
+  GB60_TECHNOLOGIE,
+  VDS_V10,
+  SYNCROSUPPLY_V10,
+  SYNCROTESS_V10,
+  APPUSECASES,
+  METHODEN,
+  TOOLS
+}
+
+relationship ManyToOne {
+  Selfevaluation{evaluatedSkill(name) required} to Skill
+  Selfevaluation{evaluatingUser(login) required} to User
+}
+relationship ManyToMany {
+  Team{teamOfUser(login) required} to User
+}
+
+service Selfevaluation, Skill, Team with serviceClass

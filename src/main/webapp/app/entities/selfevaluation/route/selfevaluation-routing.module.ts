@@ -11,9 +11,6 @@ const selfevaluationRoute: Routes = [
   {
     path: '',
     component: SelfevaluationComponent,
-    data: {
-      defaultSort: 'id,asc',
-    },
     canActivate: [UserRouteAccessService],
   },
   {

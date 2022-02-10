@@ -3,7 +3,7 @@
     <span jhiTranslate="skilltrackerApp.selfevaluation.home.title">Selfevaluations</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="skilltrackerApp.selfevaluation.home.refreshListLabel">Refresh List</span>
       </button>
@@ -31,17 +31,11 @@
   <div class="table-responsive" id="entities" *ngIf="selfevaluations && selfevaluations.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="value">
-            <span jhiTranslate="skilltrackerApp.selfevaluation.value">Value</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="evaluatinguser.login">
-            <span jhiTranslate="skilltrackerApp.selfevaluation.evaluatinguser">Evaluatinguser</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="evaluatedskill.name">
-            <span jhiTranslate="skilltrackerApp.selfevaluation.evaluatedskill">Evaluatedskill</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.value">Value</span></th>
+          <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatedSkill">Evaluated Skill</span></th>
+          <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatingUser">Evaluating User</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -52,12 +46,12 @@
           </td>
           <td>{{ selfevaluation.value }}</td>
           <td>
-            {{ selfevaluation.evaluatinguser?.login }}
+            <div *ngIf="selfevaluation.evaluatedSkill">
+              <a [routerLink]="['/skill', selfevaluation.evaluatedSkill?.id, 'view']">{{ selfevaluation.evaluatedSkill?.name }}</a>
+            </div>
           </td>
           <td>
-            <div *ngIf="selfevaluation.evaluatedskill">
-              <a [routerLink]="['/skill', selfevaluation.evaluatedskill?.id, 'view']">{{ selfevaluation.evaluatedskill?.name }}</a>
-            </div>
+            {{ selfevaluation.evaluatingUser?.login }}
           </td>
           <td class="text-right">
             <div class="btn-group">
@@ -90,23 +84,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <div *ngIf="selfevaluations && selfevaluations.length > 0">
-    <div class="row justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
-    </div>
-
-    <div class="row justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="ngbPaginationPage"
-        [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="loadPage($event)"
-      ></ngb-pagination>
-    </div>
   </div>
 </div>

@@ -9,11 +9,11 @@ import { of, Subject } from 'rxjs';
 
 import { SelfevaluationService } from '../service/selfevaluation.service';
 import { ISelfevaluation, Selfevaluation } from '../selfevaluation.model';
+import { ISkill } from 'app/entities/skill/skill.model';
+import { SkillService } from 'app/entities/skill/service/skill.service';
 
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
-import { ISkill } from 'app/entities/skill/skill.model';
-import { SkillService } from 'app/entities/skill/service/skill.service';
 
 import { SelfevaluationUpdateComponent } from './selfevaluation-update.component';
 
@@ -22,8 +22,8 @@ describe('Selfevaluation Management Update Component', () => {
   let fixture: ComponentFixture<SelfevaluationUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let selfevaluationService: SelfevaluationService;
-  let userService: UserService;
   let skillService: SkillService;
+  let userService: UserService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -37,40 +37,21 @@ describe('Selfevaluation Management Update Component', () => {
     fixture = TestBed.createComponent(SelfevaluationUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     selfevaluationService = TestBed.inject(SelfevaluationService);
-    userService = TestBed.inject(UserService);
     skillService = TestBed.inject(SkillService);
+    userService = TestBed.inject(UserService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call User query and add missing value', () => {
-      const selfevaluation: ISelfevaluation = { id: 456 };
-      const evaluatinguser: IUser = { id: 261 };
-      selfevaluation.evaluatinguser = evaluatinguser;
-
-      const userCollection: IUser[] = [{ id: 50005 }];
-      jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
-      const additionalUsers = [evaluatinguser];
-      const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
-      jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ selfevaluation });
-      comp.ngOnInit();
-
-      expect(userService.query).toHaveBeenCalled();
-      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(userCollection, ...additionalUsers);
-      expect(comp.usersSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should call Skill query and add missing value', () => {
       const selfevaluation: ISelfevaluation = { id: 456 };
-      const evaluatedskill: ISkill = { id: 35730 };
-      selfevaluation.evaluatedskill = evaluatedskill;
+      const evaluatedSkill: ISkill = { id: 35730 };
+      selfevaluation.evaluatedSkill = evaluatedSkill;
 
       const skillCollection: ISkill[] = [{ id: 79346 }];
       jest.spyOn(skillService, 'query').mockReturnValue(of(new HttpResponse({ body: skillCollection })));
-      const additionalSkills = [evaluatedskill];
+      const additionalSkills = [evaluatedSkill];
       const expectedCollection: ISkill[] = [...additionalSkills, ...skillCollection];
       jest.spyOn(skillService, 'addSkillToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -82,19 +63,38 @@ describe('Selfevaluation Management Update Component', () => {
       expect(comp.skillsSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call User query and add missing value', () => {
+      const selfevaluation: ISelfevaluation = { id: 456 };
+      const evaluatingUser: IUser = { id: 261 };
+      selfevaluation.evaluatingUser = evaluatingUser;
+
+      const userCollection: IUser[] = [{ id: 50005 }];
+      jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
+      const additionalUsers = [evaluatingUser];
+      const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
+      jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ selfevaluation });
+      comp.ngOnInit();
+
+      expect(userService.query).toHaveBeenCalled();
+      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(userCollection, ...additionalUsers);
+      expect(comp.usersSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const selfevaluation: ISelfevaluation = { id: 456 };
-      const evaluatinguser: IUser = { id: 13316 };
-      selfevaluation.evaluatinguser = evaluatinguser;
-      const evaluatedskill: ISkill = { id: 85460 };
-      selfevaluation.evaluatedskill = evaluatedskill;
+      const evaluatedSkill: ISkill = { id: 85460 };
+      selfevaluation.evaluatedSkill = evaluatedSkill;
+      const evaluatingUser: IUser = { id: 13316 };
+      selfevaluation.evaluatingUser = evaluatingUser;
 
       activatedRoute.data = of({ selfevaluation });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(selfevaluation));
-      expect(comp.usersSharedCollection).toContain(evaluatinguser);
-      expect(comp.skillsSharedCollection).toContain(evaluatedskill);
+      expect(comp.skillsSharedCollection).toContain(evaluatedSkill);
+      expect(comp.usersSharedCollection).toContain(evaluatingUser);
     });
   });
 
@@ -163,18 +163,18 @@ describe('Selfevaluation Management Update Component', () => {
   });
 
   describe('Tracking relationships identifiers', () => {
-    describe('trackUserById', () => {
-      it('Should return tracked User primary key', () => {
-        const entity = { id: 123 };
-        const trackResult = comp.trackUserById(0, entity);
-        expect(trackResult).toEqual(entity.id);
-      });
-    });
-
     describe('trackSkillById', () => {
       it('Should return tracked Skill primary key', () => {
         const entity = { id: 123 };
         const trackResult = comp.trackSkillById(0, entity);
+        expect(trackResult).toEqual(entity.id);
+      });
+    });
+
+    describe('trackUserById', () => {
+      it('Should return tracked User primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackUserById(0, entity);
         expect(trackResult).toEqual(entity.id);
       });
     });

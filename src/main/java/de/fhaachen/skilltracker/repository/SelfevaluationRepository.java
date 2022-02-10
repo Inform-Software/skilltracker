@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface SelfevaluationRepository extends JpaRepository<Selfevaluation, Long> {
-    @Query("select selfevaluation from Selfevaluation selfevaluation where selfevaluation.evaluatinguser.login = ?#{principal.username}")
-    List<Selfevaluation> findByEvaluatinguserIsCurrentUser();
+    @Query("select selfevaluation from Selfevaluation selfevaluation where selfevaluation.evaluatingUser.login = ?#{principal.username}")
+    List<Selfevaluation> findByEvaluatingUserIsCurrentUser();
 }

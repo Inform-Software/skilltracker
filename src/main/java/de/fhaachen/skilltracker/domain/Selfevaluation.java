@@ -27,11 +27,11 @@ public class Selfevaluation implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    private User evaluatinguser;
+    private Skill evaluatedSkill;
 
     @ManyToOne(optional = false)
     @NotNull
-    private Skill evaluatedskill;
+    private User evaluatingUser;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -61,29 +61,29 @@ public class Selfevaluation implements Serializable {
         this.value = value;
     }
 
-    public User getEvaluatinguser() {
-        return this.evaluatinguser;
+    public Skill getEvaluatedSkill() {
+        return this.evaluatedSkill;
     }
 
-    public void setEvaluatinguser(User user) {
-        this.evaluatinguser = user;
+    public void setEvaluatedSkill(Skill skill) {
+        this.evaluatedSkill = skill;
     }
 
-    public Selfevaluation evaluatinguser(User user) {
-        this.setEvaluatinguser(user);
+    public Selfevaluation evaluatedSkill(Skill skill) {
+        this.setEvaluatedSkill(skill);
         return this;
     }
 
-    public Skill getEvaluatedskill() {
-        return this.evaluatedskill;
+    public User getEvaluatingUser() {
+        return this.evaluatingUser;
     }
 
-    public void setEvaluatedskill(Skill skill) {
-        this.evaluatedskill = skill;
+    public void setEvaluatingUser(User user) {
+        this.evaluatingUser = user;
     }
 
-    public Selfevaluation evaluatedskill(Skill skill) {
-        this.setEvaluatedskill(skill);
+    public Selfevaluation evaluatingUser(User user) {
+        this.setEvaluatingUser(user);
         return this;
     }
 

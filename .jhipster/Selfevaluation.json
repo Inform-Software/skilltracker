@@ -10,27 +10,27 @@
   ],
   "relationships": [
     {
-      "relationshipName": "evaluatinguser",
+      "relationshipName": "evaluatedSkill",
+      "otherEntityName": "skill",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"],
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipName": "evaluatingUser",
       "otherEntityName": "user",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": ["required"],
       "otherEntityField": "login",
       "ownerSide": true,
       "otherEntityRelationshipName": "selfevaluation"
-    },
-    {
-      "relationshipName": "evaluatedskill",
-      "otherEntityName": "skill",
-      "relationshipType": "many-to-one",
-      "relationshipValidateRules": ["required"],
-      "otherEntityField": "name"
     }
   ],
   "service": "serviceClass",
-  "dto": "mapstruct",
+  "dto": "no",
   "jpaMetamodelFiltering": false,
   "readOnly": false,
-  "pagination": "pagination",
+  "pagination": "no",
   "name": "Selfevaluation",
-  "changelogDate": "20220207152631"
+  "changelogDate": "20220210083132"
 }

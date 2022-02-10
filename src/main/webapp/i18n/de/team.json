@@ -1,0 +1,25 @@
+{
+  "skilltrackerApp": {
+    "team": {
+      "home": {
+        "title": "Teams",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Team erstellen",
+        "createOrEditLabel": "Team erstellen oder bearbeiten",
+        "notFound": "Keine Teams gefunden"
+      },
+      "created": "Team erstellt mit ID {{ param }}",
+      "updated": "Team aktualisiert mit ID {{ param }}",
+      "deleted": "Team gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Team {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Team"
+      },
+      "id": "ID",
+      "name": "Name",
+      "teamMember": "Team Member"
+    }
+  }
+}

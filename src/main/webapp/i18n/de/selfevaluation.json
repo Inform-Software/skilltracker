@@ -19,8 +19,8 @@
       },
       "id": "ID",
       "value": "Value",
-      "evaluatinguser": "Evaluatinguser",
-      "evaluatedskill": "Evaluatedskill"
+      "evaluatedSkill": "Evaluated Skill",
+      "evaluatingUser": "Evaluating User"
     }
   }
 }

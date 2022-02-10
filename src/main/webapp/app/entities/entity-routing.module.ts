@@ -14,6 +14,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'skilltrackerApp.selfevaluation.home.title' },
         loadChildren: () => import('./selfevaluation/selfevaluation.module').then(m => m.SelfevaluationModule),
       },
+      {
+        path: 'team',
+        data: { pageTitle: 'skilltrackerApp.team.home.title' },
+        loadChildren: () => import('./team/team.module').then(m => m.TeamModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
