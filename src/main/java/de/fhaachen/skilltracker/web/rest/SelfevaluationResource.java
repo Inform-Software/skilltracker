@@ -3,6 +3,7 @@ package de.fhaachen.skilltracker.web.rest;
 import de.fhaachen.skilltracker.domain.Selfevaluation;
 import de.fhaachen.skilltracker.repository.SelfevaluationRepository;
 import de.fhaachen.skilltracker.service.SelfevaluationService;
+import de.fhaachen.skilltracker.service.UserService;
 import de.fhaachen.skilltracker.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,11 +35,16 @@ public class SelfevaluationResource {
     private String applicationName;
 
     private final SelfevaluationService selfevaluationService;
-
+    private final UserService userService;
     private final SelfevaluationRepository selfevaluationRepository;
 
-    public SelfevaluationResource(SelfevaluationService selfevaluationService, SelfevaluationRepository selfevaluationRepository) {
+    public SelfevaluationResource(
+        SelfevaluationService selfevaluationService,
+        UserService userService,
+        SelfevaluationRepository selfevaluationRepository
+    ) {
         this.selfevaluationService = selfevaluationService;
+        this.userService = userService;
         this.selfevaluationRepository = selfevaluationRepository;
     }
 
@@ -56,6 +62,7 @@ public class SelfevaluationResource {
         if (selfevaluation.getId() != null) {
             throw new BadRequestAlertException("A new selfevaluation cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        selfevaluation.setEvaluatingUser(userService.getUserWithAuthorities().get());
         Selfevaluation result = selfevaluationService.save(selfevaluation);
         return ResponseEntity
             .created(new URI("/api/selfevaluations/" + result.getId()))
