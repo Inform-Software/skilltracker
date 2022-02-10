@@ -34,7 +34,7 @@
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="skilltrackerApp.team.name">Name</span></th>
-          <th scope="col"><span jhiTranslate="skilltrackerApp.team.teamOfUser">Team Of User</span></th>
+          <th scope="col"><span jhiTranslate="skilltrackerApp.team.teamMember">Team Member</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -45,7 +45,7 @@
           </td>
           <td>{{ team.name }}</td>
           <td>
-            <span *ngFor="let teamOfUser of team.teamOfUsers; let last = last"> {{ teamOfUser.login }}{{ last ? '' : ', ' }} </span>
+            <span *ngFor="let teamMember of team.teamMembers; let last = last"> {{ teamMember.login }}{{ last ? '' : ', ' }} </span>
           </td>
           <td class="text-right">
             <div class="btn-group">

@@ -23,8 +23,8 @@
 
     <changeSet id="20220210083901-1-relations" author="jhipster">
 
-        <createTable tableName="rel_team__team_of_user">
-            <column name="team_of_user_id" type="bigint">
+        <createTable tableName="rel_team__team_member">
+            <column name="team_member_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="team_id" type="bigint">
@@ -32,7 +32,7 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="team_id, team_of_user_id" tableName="rel_team__team_of_user"/>
+        <addPrimaryKey columnNames="team_id, team_member_id" tableName="rel_team__team_member"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

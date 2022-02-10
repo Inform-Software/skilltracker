@@ -42,12 +42,12 @@ describe('Team Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call User query and add missing value', () => {
       const team: ITeam = { id: 456 };
-      const teamOfUsers: IUser[] = [{ id: 57888 }];
-      team.teamOfUsers = teamOfUsers;
+      const teamMembers: IUser[] = [{ id: 57888 }];
+      team.teamMembers = teamMembers;
 
       const userCollection: IUser[] = [{ id: 23198 }];
       jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
-      const additionalUsers = [...teamOfUsers];
+      const additionalUsers = [...teamMembers];
       const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
       jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -61,14 +61,14 @@ describe('Team Management Update Component', () => {
 
     it('Should update editForm', () => {
       const team: ITeam = { id: 456 };
-      const teamOfUsers: IUser = { id: 31912 };
-      team.teamOfUsers = [teamOfUsers];
+      const teamMembers: IUser = { id: 31912 };
+      team.teamMembers = [teamMembers];
 
       activatedRoute.data = of({ team });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(team));
-      expect(comp.usersSharedCollection).toContain(teamOfUsers);
+      expect(comp.usersSharedCollection).toContain(teamMembers);
     });
   });
 

@@ -19,7 +19,7 @@
       },
       "id": "ID",
       "name": "Name",
-      "teamOfUser": "Team Of User"
+      "teamMember": "Team Member"
     }
   }
 }

@@ -10,7 +10,7 @@
   ],
   "relationships": [
     {
-      "relationshipName": "teamOfUser",
+      "relationshipName": "teamMember",
       "otherEntityName": "user",
       "relationshipType": "many-to-many",
       "relationshipValidateRules": [],

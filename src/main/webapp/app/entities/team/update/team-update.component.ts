@@ -22,7 +22,7 @@ export class TeamUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.minLength(0), Validators.maxLength(50)]],
-    teamOfUsers: [],
+    teamMembers: [],
   });
 
   constructor(
@@ -92,10 +92,10 @@ export class TeamUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: team.id,
       name: team.name,
-      teamOfUsers: team.teamOfUsers,
+      teamMembers: team.teamMembers,
     });
 
-    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, ...(team.teamOfUsers ?? []));
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, ...(team.teamMembers ?? []));
   }
 
   protected loadRelationshipsOptions(): void {
@@ -103,7 +103,7 @@ export class TeamUpdateComponent implements OnInit {
       .query()
       .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
       .pipe(
-        map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, ...(this.editForm.get('teamOfUsers')!.value ?? [])))
+        map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, ...(this.editForm.get('teamMembers')!.value ?? [])))
       )
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
   }
@@ -113,7 +113,7 @@ export class TeamUpdateComponent implements OnInit {
       ...new Team(),
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
-      teamOfUsers: this.editForm.get(['teamOfUsers'])!.value,
+      teamMembers: this.editForm.get(['teamMembers'])!.value,
     };
   }
 }

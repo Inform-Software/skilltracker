@@ -28,11 +28,11 @@ public class Team implements Serializable {
 
     @ManyToMany
     @JoinTable(
-        name = "rel_team__team_of_user",
+        name = "rel_team__team_member",
         joinColumns = @JoinColumn(name = "team_id"),
-        inverseJoinColumns = @JoinColumn(name = "team_of_user_id")
+        inverseJoinColumns = @JoinColumn(name = "team_member_id")
     )
-    private Set<User> teamOfUsers = new HashSet<>();
+    private Set<User> teamMembers = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -62,26 +62,26 @@ public class Team implements Serializable {
         this.name = name;
     }
 
-    public Set<User> getTeamOfUsers() {
-        return this.teamOfUsers;
+    public Set<User> getTeamMembers() {
+        return this.teamMembers;
     }
 
-    public void setTeamOfUsers(Set<User> users) {
-        this.teamOfUsers = users;
+    public void setTeamMembers(Set<User> users) {
+        this.teamMembers = users;
     }
 
-    public Team teamOfUsers(Set<User> users) {
-        this.setTeamOfUsers(users);
+    public Team teamMembers(Set<User> users) {
+        this.setTeamMembers(users);
         return this;
     }
 
-    public Team addTeamOfUser(User user) {
-        this.teamOfUsers.add(user);
+    public Team addTeamMember(User user) {
+        this.teamMembers.add(user);
         return this;
     }
 
-    public Team removeTeamOfUser(User user) {
-        this.teamOfUsers.remove(user);
+    public Team removeTeamMember(User user) {
+        this.teamMembers.remove(user);
         return this;
     }
 

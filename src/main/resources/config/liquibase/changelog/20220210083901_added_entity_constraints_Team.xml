@@ -9,14 +9,14 @@
     <changeSet id="20220210083901-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="team_id"
-                                 baseTableName="rel_team__team_of_user"
-                                 constraintName="fk_rel_team__team_of_user__team_id"
+                                 baseTableName="rel_team__team_member"
+                                 constraintName="fk_rel_team__team_member__team_id"
                                  referencedColumnNames="id"
                                  referencedTableName="team"/>
 
-        <addForeignKeyConstraint baseColumnNames="team_of_user_id"
-                                 baseTableName="rel_team__team_of_user"
-                                 constraintName="fk_rel_team__team_of_user__team_of_user_id"
+        <addForeignKeyConstraint baseColumnNames="team_member_id"
+                                 baseTableName="rel_team__team_member"
+                                 constraintName="fk_rel_team__team_member__team_member_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
     </changeSet>

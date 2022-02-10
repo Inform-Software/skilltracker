@@ -15,14 +15,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Long> {
     @Query(
-        value = "select distinct team from Team team left join fetch team.teamOfUsers",
+        value = "select distinct team from Team team left join fetch team.teamMembers",
         countQuery = "select count(distinct team) from Team team"
     )
     Page<Team> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("select distinct team from Team team left join fetch team.teamOfUsers")
+    @Query("select distinct team from Team team left join fetch team.teamMembers")
     List<Team> findAllWithEagerRelationships();
 
-    @Query("select team from Team team left join fetch team.teamOfUsers where team.id =:id")
+    @Query("select team from Team team left join fetch team.teamMembers where team.id =:id")
     Optional<Team> findOneWithEagerRelationships(@Param("id") Long id);
 }

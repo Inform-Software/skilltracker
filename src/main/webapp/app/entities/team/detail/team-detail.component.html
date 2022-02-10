@@ -18,9 +18,9 @@
         <dd>
           <span>{{ team.name }}</span>
         </dd>
-        <dt><span jhiTranslate="skilltrackerApp.team.teamOfUser">Team Of User</span></dt>
+        <dt><span jhiTranslate="skilltrackerApp.team.teamMember">Team Member</span></dt>
         <dd>
-          <span *ngFor="let teamOfUser of team.teamOfUsers; let last = last"> {{ teamOfUser.login }}{{ last ? '' : ', ' }} </span>
+          <span *ngFor="let teamMember of team.teamMembers; let last = last"> {{ teamMember.login }}{{ last ? '' : ', ' }} </span>
         </dd>
       </dl>
 
