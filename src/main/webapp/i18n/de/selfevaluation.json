@@ -18,9 +18,11 @@
         "title": "Selfevaluation"
       },
       "id": "ID",
-      "value": "Value",
-      "evaluatedSkill": "Evaluated Skill",
-      "evaluatingUser": "Evaluating User"
+      "value": "Selbsteinschätzung",
+      "evaluatedSkill": "Kompetenz",
+      "evaluatingUser": "Evaluating User",
+      "good": "Profi",
+      "bad": "keine Kenntnisse"
     }
   }
 }

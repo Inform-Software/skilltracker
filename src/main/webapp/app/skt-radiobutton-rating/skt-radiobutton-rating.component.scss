@@ -1,0 +1,43 @@
+p {
+  margin-top: -8px;
+  font-size: 10pt;
+}
+
+/** radio button to button */
+.rating {
+  margin: 1px;
+  float: left;
+}
+
+.rating input[type='radio'] {
+  width: 0;
+}
+
+.rating label {
+  background-color: #0091a5;
+  border-style: solid;
+  border-radius: 6px;
+  border-width: 2px;
+  border-color: #000000;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12pt;
+  width: 35px;
+  display: block;
+  text-align: center;
+}
+
+.rating label:hover {
+  background-color: #002c3e;
+}
+
+.rating input[type='radio']:checked + label {
+  background-color: #fd8f3b;
+  border-color: black;
+}
+
+#wrapper {
+  display: inline-block;
+  margin-top: -25px;
+  margin-bottom: -25px;
+}

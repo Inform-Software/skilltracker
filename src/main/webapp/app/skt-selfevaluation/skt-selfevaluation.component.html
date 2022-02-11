@@ -1,0 +1,52 @@
+<div>
+  <h2 id="page-heading" data-cy="SelfevaluationHeading">
+    <span jhiTranslate="skilltrackerApp.selfevaluation.home.title">Selfevaluations</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="skilltrackerApp.selfevaluation.home.refreshListLabel">Refresh List</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="selfevaluations?.length === 0">
+    <span jhiTranslate="skilltrackerApp.selfevaluation.home.notFound">No selfevaluations found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="selfevaluations && selfevaluations.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatedSkill"></span></th>
+          <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.value"></span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let selfevaluation of selfevaluations; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/selfevaluation', selfevaluation.id, 'view']">{{ selfevaluation.id }}</a>
+          </td>
+          <td>
+            <div *ngIf="selfevaluation.evaluatedSkill">
+              <a [routerLink]="['/skill', selfevaluation.evaluatedSkill?.id, 'view']">{{ selfevaluation.evaluatedSkill?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <!-- {{ selfevaluation.value }} -->
+            <jhi-skt-radiobutton-rating [selfevaluationID]="selfevaluation.id"></jhi-skt-radiobutton-rating>
+          </td>
+          <td>
+            {{ selfevaluation.evaluatingUser?.login }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

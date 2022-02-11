@@ -1,0 +1,18 @@
+<span id="wrapper">
+  <span *ngFor="let value of values">
+    <div class="rating">
+      <input
+        type="radio"
+        id="{{ selfevaluationID }} + {{ value }}"
+        name="{{ selfevaluationID }}"
+        value="{{ value }}"
+        (change)="radioChangeHandler($event)"
+      />
+      <label for="{{ selfevaluationID }} + {{ value }}">{{ value }}</label>
+    </div>
+  </span>
+  <div>
+    <p jhiTranslate="skilltrackerApp.selfevaluation.bad" style="float: left">Very Unsatisfied</p>
+    <p jhiTranslate="skilltrackerApp.selfevaluation.good" style="float: right">Very Satisfied</p>
+  </div>
+</span>
