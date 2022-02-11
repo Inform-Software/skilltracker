@@ -30,9 +30,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let selfevaluation of selfevaluations; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/selfevaluation', selfevaluation.id, 'view']">{{ selfevaluation.id }}</a>
-          </td>
+          <td></td>
           <td>
             <div *ngIf="selfevaluation.evaluatedSkill">
               <a [routerLink]="['/skill', selfevaluation.evaluatedSkill?.id, 'view']">{{ selfevaluation.evaluatedSkill?.name }}</a>
@@ -42,9 +40,7 @@
             <!-- {{ selfevaluation.value }} -->
             <jhi-skt-radiobutton-rating [selfevaluationID]="selfevaluation.id"></jhi-skt-radiobutton-rating>
           </td>
-          <td>
-            {{ selfevaluation.evaluatingUser?.login }}
-          </td>
+          <td></td>
         </tr>
       </tbody>
     </table>

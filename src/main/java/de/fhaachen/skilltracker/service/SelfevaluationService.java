@@ -68,6 +68,17 @@ public class SelfevaluationService {
     }
 
     /**
+     * find By Evaluating User IsCurrentUser.
+     *
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<Selfevaluation> findAllByCurrentUser() {
+        log.debug("Request to get all Selfevaluations");
+        return selfevaluationRepository.findByEvaluatingUserIsCurrentUser();
+    }
+
+    /**
      * Get one selfevaluation by id.
      *
      * @param id the id of the entity.

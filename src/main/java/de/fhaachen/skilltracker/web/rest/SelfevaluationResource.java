@@ -152,6 +152,17 @@ public class SelfevaluationResource {
     }
 
     /**
+     * {@code GET  /selfevaluations} : get All selfevaluations By CurrentUser.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of selfevaluations in body.
+     */
+    @GetMapping("/selfevaluations/currentuser")
+    public List<Selfevaluation> getAllByCurrentUser() {
+        log.debug("REST request to get all Selfevaluations by current user");
+        return selfevaluationService.findAllByCurrentUser();
+    }
+
+    /**
      * {@code GET  /selfevaluations/:id} : get the "id" selfevaluation.
      *
      * @param id the id of the selfevaluation to retrieve.
