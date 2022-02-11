@@ -6,7 +6,7 @@
         id="{{ selfevaluationID }} + {{ value }}"
         name="{{ selfevaluationID }}"
         value="{{ value }}"
-        (change)="radioChangeHandler($event)"
+        (change)="updateSelfevluation($event)"
       />
       <label for="{{ selfevaluationID }} + {{ value }}">{{ value }}</label>
     </div>

@@ -29,7 +29,7 @@ export class SelfevaluationUpdateComponent implements OnInit {
     evaluatingUser: [null],
   });
 
-  private dummyUser: IUser = { id: 0, login: 'login' };
+  protected dummyUser: IUser = { id: 2, login: 'login' };
 
   constructor(
     protected selfevaluationService: SelfevaluationService,
