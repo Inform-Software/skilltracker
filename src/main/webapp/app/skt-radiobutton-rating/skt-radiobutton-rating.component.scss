@@ -1,33 +1,43 @@
-h3 {
-  font-size: 15px;
-  font-weight: bold;
-}
-
 p {
-  margin-top: -4px;
+  margin-top: -8px;
   font-size: 10pt;
 }
 
-.checked {
-  color: orange;
+/** radio button to button */
+.rating {
+  margin: 1px;
+  float: left;
 }
 
-button {
-  background-color: #0090a8;
+.rating input[type='radio'] {
+  width: 0;
+}
+
+.rating label {
+  background-color: #0091a5;
+  border-style: solid;
   border-radius: 6px;
   border-width: 2px;
-  border-style: solid;
   border-color: #000000;
   color: #ffffff;
   font-weight: bold;
   font-size: 12pt;
   width: 35px;
-  transition: all 300ms ease;
+  display: block;
+  text-align: center;
 }
 
-button:hover {
-  box-shadow: inset 0 0 0 1px #000000;
-  background-color: #ffffff;
-  color: #000000;
-  font-weight: bold;
+.rating label:hover {
+  background-color: #002c3e;
+}
+
+.rating input[type='radio']:checked + label {
+  background-color: #fd8f3b;
+  border-color: black;
+}
+
+#wrapper {
+  display: inline-block;
+  margin-top: -25px;
+  margin-bottom: -25px;
 }

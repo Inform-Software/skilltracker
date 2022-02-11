@@ -1,19 +1,18 @@
-<span style="display: inline-block">
-  <h3>Rate ur skill</h3>
-  <span><button>0</button></span>
-  <span><button>1</button></span>
-  <span><button>2</button></span>
-  <span><button>3</button></span>
-  <span><button>4</button></span>
-  <span><button>5</button></span>
-  <span><button>6</button></span>
-  <span><button>7</button></span>
-  <span><button>8</button></span>
-  <span><button>9</button></span>
-  <span><button>10</button></span>
-
+<span id="wrapper">
+  <span *ngFor="let value of values">
+    <div class="rating">
+      <input
+        type="radio"
+        id="{{ selfevaluationID }} + {{ value }}"
+        name="{{ selfevaluationID }}"
+        value="{{ value }}"
+        (change)="radioChangeHandler($event)"
+      />
+      <label for="{{ selfevaluationID }} + {{ value }}">{{ value }}</label>
+    </div>
+  </span>
   <div>
-    <p style="float: left">Very Unsatisfied</p>
-    <p style="float: right">Very Satisfied</p>
+    <p jhiTranslate="skilltrackerApp.selfevaluation.bad" style="float: left">Very Unsatisfied</p>
+    <p jhiTranslate="skilltrackerApp.selfevaluation.good" style="float: right">Very Satisfied</p>
   </div>
 </span>
