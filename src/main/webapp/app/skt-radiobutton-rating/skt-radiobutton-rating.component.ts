@@ -28,4 +28,8 @@ export class SktRadiobuttonRatingComponent extends SelfevaluationUpdateComponent
       evaluatingUser: this.selfevaluation?.evaluatingUser,
     };
   }
+
+  protected onSaveSuccess(): void {
+    return;
+  }
 }
