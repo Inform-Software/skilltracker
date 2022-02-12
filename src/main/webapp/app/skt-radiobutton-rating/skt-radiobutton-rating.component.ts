@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SelfevaluationUpdateComponent } from '../entities/selfevaluation/update/selfevaluation-update.component';
 import { ISelfevaluation, Selfevaluation } from '../entities/selfevaluation/selfevaluation.model';
 
@@ -8,8 +8,9 @@ import { ISelfevaluation, Selfevaluation } from '../entities/selfevaluation/self
   styleUrls: ['./skt-radiobutton-rating.component.scss'],
 })
 export class SktRadiobuttonRatingComponent extends SelfevaluationUpdateComponent {
-  @Input() selfevaluationID?: number;
   @Input() selfevaluation?: Selfevaluation;
+  @Output() selfevaluationID: EventEmitter<number> = new EventEmitter<number>();
+  @Output() clickedRating: EventEmitter<number> = new EventEmitter<number>();
 
   rating?: number;
   values: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -17,6 +18,8 @@ export class SktRadiobuttonRatingComponent extends SelfevaluationUpdateComponent
   updateSelfevluation(event: any): void {
     this.rating = event.target.value;
     super.save();
+    this.selfevaluationID.emit(this.selfevaluation?.id);
+    this.clickedRating.emit(this.rating);
   }
 
   createFromForm(): ISelfevaluation {
@@ -27,6 +30,10 @@ export class SktRadiobuttonRatingComponent extends SelfevaluationUpdateComponent
       evaluatedSkill: this.selfevaluation?.evaluatedSkill,
       evaluatingUser: this.selfevaluation?.evaluatingUser,
     };
+  }
+
+  isChecked(value: number): boolean {
+    return value === this.selfevaluation?.value;
   }
 
   protected onSaveSuccess(): void {

@@ -3,12 +3,13 @@
     <div class="rating">
       <input
         type="radio"
-        id="{{ selfevaluationID }} + {{ value }}"
-        name="{{ selfevaluationID }}"
+        id="{{ selfevaluation?.id }} + {{ value }}"
+        name="{{ selfevaluation?.id }}"
         value="{{ value }}"
         (change)="updateSelfevluation($event)"
+        [checked]="isChecked(value)"
       />
-      <label for="{{ selfevaluationID }} + {{ value }}">{{ value }}</label>
+      <label for="{{ selfevaluation?.id }} + {{ value }}">{{ value }}</label>
     </div>
   </span>
   <div>

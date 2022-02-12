@@ -10,10 +10,6 @@
     </div>
   </h2>
 
-  <jhi-alert-error></jhi-alert-error>
-
-  <jhi-alert></jhi-alert>
-
   <div class="alert alert-warning" id="no-result" *ngIf="selfevaluations?.length === 0">
     <span jhiTranslate="skilltrackerApp.selfevaluation.home.notFound">No selfevaluations found</span>
   </div>
@@ -22,7 +18,6 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"></th>
           <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatedSkill"></span></th>
           <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.value"></span></th>
           <th scope="col"></th>
@@ -30,20 +25,24 @@
       </thead>
       <tbody>
         <tr *ngFor="let selfevaluation of selfevaluations; trackBy: trackId" data-cy="entityTable">
-          <td></td>
           <td>
             <div *ngIf="selfevaluation.evaluatedSkill">
               <a [routerLink]="['/skill', selfevaluation.evaluatedSkill?.id, 'view']">{{ selfevaluation.evaluatedSkill?.name }}</a>
             </div>
           </td>
           <td>
-            <!-- {{ selfevaluation.value }} -->
             <jhi-skt-radiobutton-rating
-              [selfevaluationID]="selfevaluation.id"
               [selfevaluation]="selfevaluation"
+              (selfevaluationID)="getSelfevaluationID($event)"
+              (clickedRating)="getClickedRating($event)"
             ></jhi-skt-radiobutton-rating>
           </td>
-          <td></td>
+          <td>
+            <div *ngIf="displayAlert(selfevaluation)">
+              <jhi-skt-selfevaluation-alert [selfevaluation]="selfevaluation" [clickedRating]="clickedRating">
+              </jhi-skt-selfevaluation-alert>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>

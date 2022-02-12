@@ -30,6 +30,7 @@ import { ErrorComponent } from './layouts/error/error.component';
 import { SktSelfevaluationComponent } from './skt-selfevaluation/skt-selfevaluation.component';
 import { SktSelfevaluationRoutingModule } from './skt-selfevaluation/skt-selfevaluation.routing.module';
 import { SktRadiobuttonRatingComponent } from './skt-radiobutton-rating/skt-radiobutton-rating.component';
+import { SktSelfevaluationAlertComponent } from './skt-selfevaluation-alert/skt-selfevaluation-alert.component';
 
 @NgModule({
   imports: [
@@ -71,6 +72,7 @@ import { SktRadiobuttonRatingComponent } from './skt-radiobutton-rating/skt-radi
     FooterComponent,
     SktSelfevaluationComponent,
     SktRadiobuttonRatingComponent,
+    SktSelfevaluationAlertComponent,
   ],
   bootstrap: [MainComponent],
 })

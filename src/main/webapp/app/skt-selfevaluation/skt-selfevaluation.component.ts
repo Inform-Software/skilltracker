@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SelfevaluationComponent } from '../entities/selfevaluation/list/selfevaluation.component';
 import { HttpResponse } from '@angular/common/http';
-import { ISelfevaluation } from '../entities/selfevaluation/selfevaluation.model';
+import { ISelfevaluation, Selfevaluation } from '../entities/selfevaluation/selfevaluation.model';
 
 @Component({
   selector: 'jhi-skt-selfevaluation',
@@ -9,6 +9,9 @@ import { ISelfevaluation } from '../entities/selfevaluation/selfevaluation.model
   styleUrls: ['./skt-selfevaluation.component.scss'],
 })
 export class SktSelfevaluationComponent extends SelfevaluationComponent {
+  clickedSelfevaluation?: number;
+  clickedRating?: number;
+
   loadAllByCurrentUser(): void {
     this.isLoading = true;
 
@@ -25,5 +28,17 @@ export class SktSelfevaluationComponent extends SelfevaluationComponent {
 
   ngOnInit(): void {
     this.loadAllByCurrentUser();
+  }
+
+  displayAlert(selfevaluation: Selfevaluation): boolean {
+    return selfevaluation.id === this.clickedSelfevaluation;
+  }
+
+  getSelfevaluationID($event: number): void {
+    this.clickedSelfevaluation = $event;
+  }
+
+  getClickedRating($event: number): void {
+    this.clickedRating = $event;
   }
 }

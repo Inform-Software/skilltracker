@@ -21,6 +21,7 @@
       "value": "Evaluation",
       "evaluatedSkill": "Skill",
       "evaluatingUser": "Evaluating User",
+      "alert": "has been updated to:",
       "good": "expert",
       "bad": "zero knowledge"
     }
