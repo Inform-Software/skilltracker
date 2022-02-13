@@ -11,8 +11,7 @@
   border-left: 8px solid #1aa742;
   overflow: hidden;
   height: 50px;
-  animation: 2s ease-in;
-  animation-fill-mode: forwards;
+  animation: visible 3s ease;
 }
 
 .hide {
@@ -36,17 +35,14 @@
   bottom: 0;
   height: 5px;
   background-color: #1aa742;
-  animation: bar 2s ease-in;
-  animation-fill-mode: forwards;
+  animation: bar 3s ease;
 }
 
 @keyframes bar {
   from {
     width: 100%;
-    opacity: 1;
   }
   to {
-    opacity: 0;
     width: 0%;
   }
 }
