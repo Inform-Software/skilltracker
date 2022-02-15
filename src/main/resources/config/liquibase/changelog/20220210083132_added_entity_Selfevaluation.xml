@@ -17,6 +17,9 @@
             <column name="value" type="integer">
                 <constraints nullable="false" />
             </column>
+            <column name="want_to_improve" type="boolean">
+                <constraints nullable="true" />
+            </column>
             <column name="evaluated_skill_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -45,6 +48,7 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="value" type="numeric"/>
+            <column name="want_to_improve" type="boolean"/>
             <column name="evaluated_skill_id" type="numeric"/>
             <column name="evaluating_user_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

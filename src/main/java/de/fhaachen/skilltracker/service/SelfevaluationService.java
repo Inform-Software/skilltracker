@@ -50,6 +50,9 @@ public class SelfevaluationService {
                 if (selfevaluation.getValue() != null) {
                     existingSelfevaluation.setValue(selfevaluation.getValue());
                 }
+                if (selfevaluation.getWantToImprove() != null) {
+                    existingSelfevaluation.setWantToImprove(selfevaluation.getWantToImprove());
+                }
 
                 return existingSelfevaluation;
             })

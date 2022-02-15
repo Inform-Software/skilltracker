@@ -25,6 +25,7 @@ export class SelfevaluationUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     value: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
+    wantToImprove: [],
     evaluatedSkill: [null, Validators.required],
     evaluatingUser: [null],
   });
@@ -92,6 +93,7 @@ export class SelfevaluationUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: selfevaluation.id,
       value: selfevaluation.value,
+      wantToImprove: selfevaluation.wantToImprove,
       evaluatedSkill: selfevaluation.evaluatedSkill,
       evaluatingUser: selfevaluation.evaluatingUser,
     });
@@ -122,6 +124,7 @@ export class SelfevaluationUpdateComponent implements OnInit {
       ...new Selfevaluation(),
       id: this.editForm.get(['id'])!.value,
       value: this.editForm.get(['value'])!.value,
+      wantToImprove: this.editForm.get(['wantToImprove'])!.value,
       evaluatedSkill: this.editForm.get(['evaluatedSkill'])!.value,
       evaluatingUser: this.dummyUser,
     };

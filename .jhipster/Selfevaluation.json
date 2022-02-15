@@ -6,6 +6,11 @@
       "fieldValidateRules": ["required", "min", "max"],
       "fieldValidateRulesMin": "0",
       "fieldValidateRulesMax": "10"
+    },
+    {
+      "fieldName": "wantToImprove",
+      "fieldType": "Boolean",
+      "fieldValidateRules": []
     }
   ],
   "relationships": [

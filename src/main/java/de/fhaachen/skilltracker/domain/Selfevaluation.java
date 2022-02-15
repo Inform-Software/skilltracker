@@ -25,6 +25,9 @@ public class Selfevaluation implements Serializable {
     @Column(name = "value", nullable = false)
     private Integer value;
 
+    @Column(name = "want_to_improve")
+    private Boolean wantToImprove;
+
     @ManyToOne(optional = false)
     @NotNull
     private Skill evaluatedSkill;
@@ -59,6 +62,19 @@ public class Selfevaluation implements Serializable {
 
     public void setValue(Integer value) {
         this.value = value;
+    }
+
+    public Boolean getWantToImprove() {
+        return this.wantToImprove;
+    }
+
+    public Selfevaluation wantToImprove(Boolean wantToImprove) {
+        this.setWantToImprove(wantToImprove);
+        return this;
+    }
+
+    public void setWantToImprove(Boolean wantToImprove) {
+        this.wantToImprove = wantToImprove;
     }
 
     public Skill getEvaluatedSkill() {
@@ -112,6 +128,7 @@ public class Selfevaluation implements Serializable {
         return "Selfevaluation{" +
             "id=" + getId() +
             ", value=" + getValue() +
+            ", wantToImprove='" + getWantToImprove() + "'" +
             "}";
     }
 }
