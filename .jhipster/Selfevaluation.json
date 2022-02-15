@@ -11,6 +11,11 @@
       "fieldName": "wantToImprove",
       "fieldType": "Boolean",
       "fieldValidateRules": []
+    },
+    {
+      "fieldName": "isEvaluated",
+      "fieldType": "Boolean",
+      "fieldValidateRules": []
     }
   ],
   "relationships": [
