@@ -47,6 +47,20 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" jhiTranslate="skilltrackerApp.selfevaluation.wantToImprove" for="field_wantToImprove"
+            >Want To Improve</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="wantToImprove"
+            id="field_wantToImprove"
+            data-cy="wantToImprove"
+            formControlName="wantToImprove"
+          />
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" jhiTranslate="skilltrackerApp.selfevaluation.evaluatedSkill" for="field_evaluatedSkill"
             >Evaluated Skill</label
           >
@@ -81,6 +95,26 @@
           </small>
         </div>
 
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="skilltrackerApp.selfevaluation.evaluatingUser" for="field_evaluatingUser"
+            >Evaluating User</label
+          >
+          <select
+            class="form-control"
+            id="field_evaluatingUser"
+            data-cy="evaluatingUser"
+            name="evaluatingUser"
+            formControlName="evaluatingUser"
+          >
+            <option *ngIf="!editForm.get('evaluatingUser')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('evaluatingUser')!.value?.id ? editForm.get('evaluatingUser')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.login }}
+            </option>
+          </select>
+        </div>
         <div
           *ngIf="
             editForm.get(['evaluatingUser'])!.invalid &&

@@ -34,6 +34,7 @@
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.value">Value</span></th>
+          <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.wantToImprove">Want To Improve</span></th>
           <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatedSkill">Evaluated Skill</span></th>
           <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatingUser">Evaluating User</span></th>
           <th scope="col"></th>
@@ -45,6 +46,7 @@
             <a [routerLink]="['/selfevaluation', selfevaluation.id, 'view']">{{ selfevaluation.id }}</a>
           </td>
           <td>{{ selfevaluation.value }}</td>
+          <td>{{ selfevaluation.wantToImprove }}</td>
           <td>
             <div *ngIf="selfevaluation.evaluatedSkill">
               <a [routerLink]="['/skill', selfevaluation.evaluatedSkill?.id, 'view']">{{ selfevaluation.evaluatedSkill?.name }}</a>

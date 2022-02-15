@@ -23,7 +23,10 @@
       "evaluatingUser": "Evaluating User",
       "alert": "has been updated to:",
       "good": "expert",
-      "bad": "zero knowledge"
+      "bad": "zero knowledge",
+      "wantToImprove": "Want To Improve",
+      "evaluatedSkill": "Evaluated Skill",
+      "evaluatingUser": "Evaluating User"
     }
   }
 }

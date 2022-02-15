@@ -22,6 +22,7 @@ describe('Selfevaluation Service', () => {
     elemDefault = {
       id: 0,
       value: 0,
+      wantToImprove: false,
     };
   });
 
@@ -58,6 +59,7 @@ describe('Selfevaluation Service', () => {
         {
           id: 1,
           value: 1,
+          wantToImprove: true,
         },
         elemDefault
       );
@@ -75,6 +77,7 @@ describe('Selfevaluation Service', () => {
       const patchObject = Object.assign(
         {
           value: 1,
+          wantToImprove: true,
         },
         new Selfevaluation()
       );
@@ -95,6 +98,7 @@ describe('Selfevaluation Service', () => {
         {
           id: 1,
           value: 1,
+          wantToImprove: true,
         },
         elemDefault
       );
@@ -146,7 +150,7 @@ describe('Selfevaluation Service', () => {
       });
 
       it('should add only unique Selfevaluation to an array', () => {
-        const selfevaluationArray: ISelfevaluation[] = [{ id: 123 }, { id: 456 }, { id: 98606 }];
+        const selfevaluationArray: ISelfevaluation[] = [{ id: 123 }, { id: 456 }, { id: 26188 }];
         const selfevaluationCollection: ISelfevaluation[] = [{ id: 123 }];
         expectedResult = service.addSelfevaluationToCollectionIfMissing(selfevaluationCollection, ...selfevaluationArray);
         expect(expectedResult).toHaveLength(3);

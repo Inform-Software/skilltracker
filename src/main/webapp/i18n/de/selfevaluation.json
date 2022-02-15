@@ -23,7 +23,10 @@
       "evaluatingUser": "Evaluating User",
       "alert": "wurde aktuallisiert zu:",
       "good": "Profi",
-      "bad": "keine Kenntnisse"
+      "bad": "keine Kenntnisse",
+      "wantToImprove": "Verbesserungswunsch",
+      "evaluatedSkill": "Evaluated Skill",
+      "evaluatingUser": "Evaluating User"
     }
   }
 }

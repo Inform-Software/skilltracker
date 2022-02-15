@@ -10,6 +10,7 @@
         "skill": "Skill",
         "selfevaluation": "Selbsteinschätzung",
         "team": "Team",
+        "selfevaluation": "Selfevaluation",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
