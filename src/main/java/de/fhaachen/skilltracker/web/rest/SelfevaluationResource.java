@@ -63,6 +63,7 @@ public class SelfevaluationResource {
             throw new BadRequestAlertException("A new selfevaluation cannot already have an ID", ENTITY_NAME, "idexists");
         }
         selfevaluation.setEvaluatingUser(userService.getUserWithAuthorities().get());
+        selfevaluation.setIsEvaluated(false);
         Selfevaluation result = selfevaluationService.save(selfevaluation);
         return ResponseEntity
             .created(new URI("/api/selfevaluations/" + result.getId()))
@@ -73,7 +74,7 @@ public class SelfevaluationResource {
     /**
      * {@code PUT  /selfevaluations/:id} : Updates an existing selfevaluation.
      *
-     * @param id the id of the selfevaluation to save.
+     * @param id             the id of the selfevaluation to save.
      * @param selfevaluation the selfevaluation to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated selfevaluation,
      * or with status {@code 400 (Bad Request)} if the selfevaluation is not valid,
@@ -96,7 +97,7 @@ public class SelfevaluationResource {
         if (!selfevaluationRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
-
+        selfevaluation.setIsEvaluated(true);
         Selfevaluation result = selfevaluationService.save(selfevaluation);
         return ResponseEntity
             .ok()
@@ -107,7 +108,7 @@ public class SelfevaluationResource {
     /**
      * {@code PATCH  /selfevaluations/:id} : Partial updates given fields of an existing selfevaluation, field will ignore if it is null
      *
-     * @param id the id of the selfevaluation to save.
+     * @param id             the id of the selfevaluation to save.
      * @param selfevaluation the selfevaluation to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated selfevaluation,
      * or with status {@code 400 (Bad Request)} if the selfevaluation is not valid,
