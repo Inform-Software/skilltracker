@@ -26,6 +26,7 @@ export class SelfevaluationUpdateComponent implements OnInit {
     id: [],
     value: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
     wantToImprove: [],
+    isEvaluated: [],
     evaluatedSkill: [null, Validators.required],
     evaluatingUser: [null],
   });
@@ -94,6 +95,7 @@ export class SelfevaluationUpdateComponent implements OnInit {
       id: selfevaluation.id,
       value: selfevaluation.value,
       wantToImprove: selfevaluation.wantToImprove,
+      isEvaluated: selfevaluation.isEvaluated,
       evaluatedSkill: selfevaluation.evaluatedSkill,
       evaluatingUser: selfevaluation.evaluatingUser,
     });
@@ -125,6 +127,7 @@ export class SelfevaluationUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       value: this.editForm.get(['value'])!.value,
       wantToImprove: this.editForm.get(['wantToImprove'])!.value,
+      isEvaluated: this.editForm.get(['isEvaluated'])!.value,
       evaluatedSkill: this.editForm.get(['evaluatedSkill'])!.value,
       evaluatingUser: this.dummyUser,
     };

@@ -38,6 +38,9 @@ class SelfevaluationResourceIT {
     private static final Boolean DEFAULT_WANT_TO_IMPROVE = false;
     private static final Boolean UPDATED_WANT_TO_IMPROVE = true;
 
+    private static final Boolean DEFAULT_IS_EVALUATED = false;
+    private static final Boolean UPDATED_IS_EVALUATED = true;
+
     private static final String ENTITY_API_URL = "/api/selfevaluations";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -62,7 +65,10 @@ class SelfevaluationResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Selfevaluation createEntity(EntityManager em) {
-        Selfevaluation selfevaluation = new Selfevaluation().value(DEFAULT_VALUE).wantToImprove(DEFAULT_WANT_TO_IMPROVE);
+        Selfevaluation selfevaluation = new Selfevaluation()
+            .value(DEFAULT_VALUE)
+            .wantToImprove(DEFAULT_WANT_TO_IMPROVE)
+            .isEvaluated(DEFAULT_IS_EVALUATED);
         // Add required entity
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
@@ -88,7 +94,10 @@ class SelfevaluationResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Selfevaluation createUpdatedEntity(EntityManager em) {
-        Selfevaluation selfevaluation = new Selfevaluation().value(UPDATED_VALUE).wantToImprove(UPDATED_WANT_TO_IMPROVE);
+        Selfevaluation selfevaluation = new Selfevaluation()
+            .value(UPDATED_VALUE)
+            .wantToImprove(UPDATED_WANT_TO_IMPROVE)
+            .isEvaluated(UPDATED_IS_EVALUATED);
         // Add required entity
         Skill skill;
         if (TestUtil.findAll(em, Skill.class).isEmpty()) {
@@ -132,6 +141,7 @@ class SelfevaluationResourceIT {
         Selfevaluation testSelfevaluation = selfevaluationList.get(selfevaluationList.size() - 1);
         assertThat(testSelfevaluation.getValue()).isEqualTo(DEFAULT_VALUE);
         assertThat(testSelfevaluation.getWantToImprove()).isEqualTo(DEFAULT_WANT_TO_IMPROVE);
+        assertThat(testSelfevaluation.getIsEvaluated()).isEqualTo(DEFAULT_IS_EVALUATED);
     }
 
     @Test
@@ -192,7 +202,8 @@ class SelfevaluationResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(selfevaluation.getId().intValue())))
             .andExpect(jsonPath("$.[*].value").value(hasItem(DEFAULT_VALUE)))
-            .andExpect(jsonPath("$.[*].wantToImprove").value(hasItem(DEFAULT_WANT_TO_IMPROVE.booleanValue())));
+            .andExpect(jsonPath("$.[*].wantToImprove").value(hasItem(DEFAULT_WANT_TO_IMPROVE.booleanValue())))
+            .andExpect(jsonPath("$.[*].isEvaluated").value(hasItem(DEFAULT_IS_EVALUATED.booleanValue())));
     }
 
     @Test
@@ -208,7 +219,8 @@ class SelfevaluationResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(selfevaluation.getId().intValue()))
             .andExpect(jsonPath("$.value").value(DEFAULT_VALUE))
-            .andExpect(jsonPath("$.wantToImprove").value(DEFAULT_WANT_TO_IMPROVE.booleanValue()));
+            .andExpect(jsonPath("$.wantToImprove").value(DEFAULT_WANT_TO_IMPROVE.booleanValue()))
+            .andExpect(jsonPath("$.isEvaluated").value(DEFAULT_IS_EVALUATED.booleanValue()));
     }
 
     @Test
@@ -230,7 +242,7 @@ class SelfevaluationResourceIT {
         Selfevaluation updatedSelfevaluation = selfevaluationRepository.findById(selfevaluation.getId()).get();
         // Disconnect from session so that the updates on updatedSelfevaluation are not directly saved in db
         em.detach(updatedSelfevaluation);
-        updatedSelfevaluation.value(UPDATED_VALUE).wantToImprove(UPDATED_WANT_TO_IMPROVE);
+        updatedSelfevaluation.value(UPDATED_VALUE).wantToImprove(UPDATED_WANT_TO_IMPROVE).isEvaluated(UPDATED_IS_EVALUATED);
 
         restSelfevaluationMockMvc
             .perform(
@@ -247,6 +259,7 @@ class SelfevaluationResourceIT {
         Selfevaluation testSelfevaluation = selfevaluationList.get(selfevaluationList.size() - 1);
         assertThat(testSelfevaluation.getValue()).isEqualTo(UPDATED_VALUE);
         assertThat(testSelfevaluation.getWantToImprove()).isEqualTo(UPDATED_WANT_TO_IMPROVE);
+        assertThat(testSelfevaluation.getIsEvaluated()).isEqualTo(UPDATED_IS_EVALUATED);
     }
 
     @Test
@@ -339,6 +352,7 @@ class SelfevaluationResourceIT {
         Selfevaluation testSelfevaluation = selfevaluationList.get(selfevaluationList.size() - 1);
         assertThat(testSelfevaluation.getValue()).isEqualTo(DEFAULT_VALUE);
         assertThat(testSelfevaluation.getWantToImprove()).isEqualTo(DEFAULT_WANT_TO_IMPROVE);
+        assertThat(testSelfevaluation.getIsEvaluated()).isEqualTo(DEFAULT_IS_EVALUATED);
     }
 
     @Test
@@ -353,7 +367,7 @@ class SelfevaluationResourceIT {
         Selfevaluation partialUpdatedSelfevaluation = new Selfevaluation();
         partialUpdatedSelfevaluation.setId(selfevaluation.getId());
 
-        partialUpdatedSelfevaluation.value(UPDATED_VALUE).wantToImprove(UPDATED_WANT_TO_IMPROVE);
+        partialUpdatedSelfevaluation.value(UPDATED_VALUE).wantToImprove(UPDATED_WANT_TO_IMPROVE).isEvaluated(UPDATED_IS_EVALUATED);
 
         restSelfevaluationMockMvc
             .perform(
@@ -370,6 +384,7 @@ class SelfevaluationResourceIT {
         Selfevaluation testSelfevaluation = selfevaluationList.get(selfevaluationList.size() - 1);
         assertThat(testSelfevaluation.getValue()).isEqualTo(UPDATED_VALUE);
         assertThat(testSelfevaluation.getWantToImprove()).isEqualTo(UPDATED_WANT_TO_IMPROVE);
+        assertThat(testSelfevaluation.getIsEvaluated()).isEqualTo(UPDATED_IS_EVALUATED);
     }
 
     @Test

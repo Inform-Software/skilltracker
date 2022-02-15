@@ -25,6 +25,7 @@
       "good": "Profi",
       "bad": "keine Kenntnisse",
       "wantToImprove": "Verbesserungswunsch",
+      "isEvaluated": "Is Evaluated",
       "evaluatedSkill": "Evaluated Skill",
       "evaluatingUser": "Evaluating User"
     }
