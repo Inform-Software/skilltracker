@@ -200,6 +200,6 @@ public class SelfevaluationResource {
     @GetMapping("/selfevaluations/{team}/{category}")
     public List<Selfevaluation> getByTeam(@PathVariable long teamId, @PathVariable String category) {
         log.debug("REST request to get all Selfevaluations by current user");
-        return selfevaluationService.findByTeam(teamId, category);
+        return selfevaluationService.findByTeamAndCategory(teamId, category);
     }
 }
