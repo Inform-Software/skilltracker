@@ -50,7 +50,7 @@ export class SelfevaluationService {
 
   findByTeamAndCategory(teamId: number, category: string, req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<ISelfevaluation[]>(this.resourceUrl + '/${teamId}/${category}', { params: options, observe: 'response' });
+    return this.http.get<ISelfevaluation[]>(`${this.resourceUrl}/${teamId}/${category}`, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

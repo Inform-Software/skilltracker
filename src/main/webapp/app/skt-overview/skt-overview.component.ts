@@ -11,10 +11,7 @@ import { EntityResponseType } from '../entities/selfevaluation/service/selfevalu
   styleUrls: ['./skt-overview.component.scss'],
 })
 export class SktOverviewComponent extends SelfevaluationComponent {
-  clickedSelfevaluation?: number;
-  clickedRating?: number;
-
-  loadAllByCurrentUser(): void {
+  loadAllByTeamAndCategory(): void {
     this.isLoading = true;
 
     this.selfevaluationService.findByTeamAndCategory(2, 'VDS_V10').subscribe(
@@ -28,11 +25,7 @@ export class SktOverviewComponent extends SelfevaluationComponent {
     );
   }
 
-  displayAlert(selfevaluation: Selfevaluation): boolean {
-    return selfevaluation.id === this.clickedSelfevaluation;
-  }
-
   ngOnInit(): void {
-    this.loadAllByCurrentUser();
+    this.loadAllByTeamAndCategory();
   }
 }

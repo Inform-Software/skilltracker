@@ -3,7 +3,7 @@
     <span jhiTranslate="skilltrackerApp.selfevaluation.home.title">Selfevaluations</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAllByCurrentUser()" [disabled]="isLoading">
+      <button class="btn btn-info mr-2" (click)="loadAllByTeamAndCategory()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="skilltrackerApp.selfevaluation.home.refreshListLabel">Refresh List</span>
       </button>
@@ -40,12 +40,6 @@
             </td>
             <td>
               <jhi-skt-overview-indicator [selfevaluation]="selfevaluation"></jhi-skt-overview-indicator>
-            </td>
-            <td>
-              <div *ngIf="displayAlert(selfevaluation)">
-                <jhi-skt-selfevaluation-alert [selfevaluation]="selfevaluation" [clickedRating]="clickedRating">
-                </jhi-skt-selfevaluation-alert>
-              </div>
             </td>
           </tr>
         </tbody>
