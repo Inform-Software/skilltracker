@@ -1,0 +1,30 @@
+.rating {
+  margin: 1px;
+  float: left;
+}
+
+.rating label {
+  border-style: solid;
+  border-radius: 6px;
+  border-width: 2px;
+  border-color: #000000;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12pt;
+  width: 35px;
+  display: block;
+  text-align: center;
+}
+
+.checked {
+  background-color: #fd8f3b;
+}
+
+.unchecked {
+  background-color: #0091a5;
+}
+
+#wrapper {
+  display: inline-block;
+  margin-bottom: -15px;
+}

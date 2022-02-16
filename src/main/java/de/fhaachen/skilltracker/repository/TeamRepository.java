@@ -24,5 +24,5 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     List<Team> findAllWithEagerRelationships();
 
     @Query("select team from Team team left join fetch team.teamMembers where team.id =:id")
-    Optional<Team> findOneWithEagerRelationships(@Param("id") Long id);
+    Optional<Team> findOneWithEagerRelationships(@Param("id") Long id, @Param("id") Long id);
 }

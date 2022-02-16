@@ -105,4 +105,15 @@ public class SelfevaluationService {
         log.debug("Request to delete Selfevaluation : {}", id);
         selfevaluationRepository.deleteById(id);
     }
+
+    /**
+     * find By Team.
+     *
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<Selfevaluation> findByTeamAndCategory(long teamId, String category) {
+        log.debug("Request to get all Selfevaluations by Team");
+        return selfevaluationRepository.findByTeamAndCategory(teamId, category);
+    }
 }

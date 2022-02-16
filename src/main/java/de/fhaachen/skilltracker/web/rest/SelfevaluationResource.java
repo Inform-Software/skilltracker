@@ -191,4 +191,15 @@ public class SelfevaluationResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    /**
+     * {@code GET  /selfevaluations} : get All selfevaluations By CurrentUser.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of selfevaluations in body.
+     */
+    @GetMapping("/selfevaluations/{team}/{category}")
+    public List<Selfevaluation> getByTeam(@PathVariable long teamId, @PathVariable String category) {
+        log.debug("REST request to get all Selfevaluations by current user");
+        return selfevaluationService.findByTeam(teamId, category);
+    }
 }

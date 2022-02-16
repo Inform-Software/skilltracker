@@ -31,6 +31,10 @@ import { SktSelfevaluationComponent } from './skt-selfevaluation/skt-selfevaluat
 import { SktSelfevaluationRoutingModule } from './skt-selfevaluation/skt-selfevaluation.routing.module';
 import { SktRadiobuttonRatingComponent } from './skt-radiobutton-rating/skt-radiobutton-rating.component';
 import { SktSelfevaluationAlertComponent } from './skt-selfevaluation-alert/skt-selfevaluation-alert.component';
+import { SktOverviewComponent } from './skt-overview/skt-overview.component';
+import { SktOverviewRoutingModule } from './skt-overview/skt-overview.routing.module';
+import { SktOverviewIndicatorComponent } from './skt-overview-indicator/skt-overview-indicator.component';
+import { SktOverviewSidebarComponent } from './skt-overview-sidebar/skt-overview-sidebar.component';
 
 @NgModule({
   imports: [
@@ -38,6 +42,7 @@ import { SktSelfevaluationAlertComponent } from './skt-selfevaluation-alert/skt-
     SharedModule,
     HomeModule,
     SktSelfevaluationRoutingModule,
+    SktOverviewRoutingModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     EntityRoutingModule,
     AppRoutingModule,
@@ -73,6 +78,9 @@ import { SktSelfevaluationAlertComponent } from './skt-selfevaluation-alert/skt-
     SktSelfevaluationComponent,
     SktRadiobuttonRatingComponent,
     SktSelfevaluationAlertComponent,
+    SktOverviewComponent,
+    SktOverviewIndicatorComponent,
+    SktOverviewSidebarComponent,
   ],
   bootstrap: [MainComponent],
 })
