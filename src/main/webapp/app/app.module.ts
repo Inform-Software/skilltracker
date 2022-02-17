@@ -35,6 +35,7 @@ import { SktOverviewComponent } from './skt-overview/skt-overview.component';
 import { SktOverviewRoutingModule } from './skt-overview/skt-overview.routing.module';
 import { SktOverviewIndicatorComponent } from './skt-overview-indicator/skt-overview-indicator.component';
 import { SktOverviewSidebarComponent } from './skt-overview-sidebar/skt-overview-sidebar.component';
+import { SktOverviewTeamDropdownComponent } from './skt-overview-team-dropdown/skt-overview-team-dropdown.component';
 
 @NgModule({
   imports: [
@@ -81,6 +82,7 @@ import { SktOverviewSidebarComponent } from './skt-overview-sidebar/skt-overview
     SktOverviewComponent,
     SktOverviewIndicatorComponent,
     SktOverviewSidebarComponent,
+    SktOverviewTeamDropdownComponent,
   ],
   bootstrap: [MainComponent],
 })

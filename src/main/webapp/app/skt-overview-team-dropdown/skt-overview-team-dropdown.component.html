@@ -1,0 +1,6 @@
+<span class="box">
+  <select>
+    <option value="" hidden>Wähle eine Team aus</option>
+    <option *ngFor="let team of teams" [value]="team.name">{{ team.name }}</option>
+  </select>
+</span>

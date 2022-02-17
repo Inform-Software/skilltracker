@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SelfevaluationComponent } from '../entities/selfevaluation/list/selfevaluation.component';
 import { HttpResponse } from '@angular/common/http';
 import { ISelfevaluation, Selfevaluation } from '../entities/selfevaluation/selfevaluation.model';
@@ -8,7 +8,7 @@ import { ISelfevaluation, Selfevaluation } from '../entities/selfevaluation/self
   templateUrl: './skt-selfevaluation.component.html',
   styleUrls: ['./skt-selfevaluation.component.scss'],
 })
-export class SktSelfevaluationComponent extends SelfevaluationComponent {
+export class SktSelfevaluationComponent extends SelfevaluationComponent implements OnInit {
   clickedSelfevaluation?: number;
   clickedRating?: number;
 

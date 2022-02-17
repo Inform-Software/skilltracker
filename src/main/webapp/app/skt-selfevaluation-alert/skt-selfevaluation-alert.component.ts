@@ -1,6 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Selfevaluation } from '../entities/selfevaluation/selfevaluation.model';
-import { AlertComponent } from '../shared/alert/alert.component';
 
 @Component({
   selector: 'jhi-skt-selfevaluation-alert',
@@ -12,7 +11,7 @@ export class SktSelfevaluationAlertComponent implements OnChanges {
   @Input() clickedRating?: number;
   timer: any;
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     const alert = document.getElementsByClassName('alert')[0];
     if (this.timer) {
       clearTimeout(this.timer);

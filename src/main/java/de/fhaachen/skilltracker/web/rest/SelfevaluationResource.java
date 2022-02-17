@@ -1,6 +1,7 @@
 package de.fhaachen.skilltracker.web.rest;
 
 import de.fhaachen.skilltracker.domain.Selfevaluation;
+import de.fhaachen.skilltracker.domain.enumeration.SkillCategory;
 import de.fhaachen.skilltracker.repository.SelfevaluationRepository;
 import de.fhaachen.skilltracker.service.SelfevaluationService;
 import de.fhaachen.skilltracker.service.UserService;
@@ -198,8 +199,8 @@ public class SelfevaluationResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of selfevaluations in body.
      */
     @GetMapping("/selfevaluations/{teamId}/{category}")
-    public List<Selfevaluation> getByTeam(@PathVariable long teamId, @PathVariable String category) {
+    public List<Selfevaluation> getByTeamAndCategory(@PathVariable long teamId, @PathVariable String category) {
         log.debug("REST request to get all Selfevaluations by current user");
-        return selfevaluationService.findByTeamAndCategory(teamId, category);
+        return selfevaluationService.findByTeamAndCategory(teamId, SkillCategory.valueOf(category));
     }
 }

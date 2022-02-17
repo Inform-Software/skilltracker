@@ -1,16 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SelfevaluationComponent } from '../entities/selfevaluation/list/selfevaluation.component';
 import { HttpResponse } from '@angular/common/http';
-import { ISelfevaluation, Selfevaluation } from '../entities/selfevaluation/selfevaluation.model';
-import { Observable } from 'rxjs';
-import { EntityResponseType } from '../entities/selfevaluation/service/selfevaluation.service';
+import { ISelfevaluation } from '../entities/selfevaluation/selfevaluation.model';
+import { DataService } from '../Service/data.service';
+import { SelfevaluationService } from '../entities/selfevaluation/service/selfevaluation.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'jhi-skt-overview',
   templateUrl: './skt-overview.component.html',
   styleUrls: ['./skt-overview.component.scss'],
 })
-export class SktOverviewComponent extends SelfevaluationComponent {
+export class SktOverviewComponent extends SelfevaluationComponent implements OnInit, OnDestroy {
+  constructor(protected selfevaluationService: SelfevaluationService, protected modalService: NgbModal, private data: DataService) {
+    super(selfevaluationService, modalService);
+  }
+
   loadAllByTeamAndCategory(): void {
     this.isLoading = true;
 
@@ -27,5 +33,10 @@ export class SktOverviewComponent extends SelfevaluationComponent {
 
   ngOnInit(): void {
     this.loadAllByTeamAndCategory();
+    this.data.setDisplay(true);
+  }
+
+  ngOnDestroy(): void {
+    this.data.setDisplay(false);
   }
 }
