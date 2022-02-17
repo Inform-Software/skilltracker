@@ -1,4 +1,4 @@
-<jhi-skt-overview-sidebar></jhi-skt-overview-sidebar>
+<jhi-skt-overview-sidebar (category)="getCategory($event)"></jhi-skt-overview-sidebar>
 
 <div>
   <div>
@@ -6,7 +6,7 @@
       <div jhiTranslate="skilltrackerApp.selfevaluation.home.title">Selfevaluations</div>
 
       <div class="buttons">
-        <jhi-skt-overview-team-dropdown style="float: left"></jhi-skt-overview-team-dropdown>
+        <jhi-skt-overview-team-dropdown style="float: left" (teamId)="getTeamId($event)"></jhi-skt-overview-team-dropdown>
         <button class="btn btn-info mr-2" (click)="loadAllByTeamAndCategory()" [disabled]="isLoading" style="float: right">
           <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
           <span jhiTranslate="skilltrackerApp.selfevaluation.home.refreshListLabel">Refresh List</span>
