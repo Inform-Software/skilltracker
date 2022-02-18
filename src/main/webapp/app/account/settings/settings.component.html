@@ -144,6 +144,13 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label for="teamKey" jhiTranslate="settings.form.team">team</label>
+          <select class="form-control" id="teamKey" name="teamKey" formControlName="teamKey" data-cy="teamKey">
+            <option *ngFor="let team of teams" [value]="team">{{ team.name }}</option>
+          </select>
+        </div>
+
         <div class="form-group" *ngIf="languages && languages.length > 0">
           <label for="langKey" jhiTranslate="settings.form.language">Language</label>
           <select class="form-control" id="langKey" name="langKey" formControlName="langKey" data-cy="langKey">
