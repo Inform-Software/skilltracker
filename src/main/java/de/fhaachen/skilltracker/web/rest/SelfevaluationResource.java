@@ -203,4 +203,15 @@ public class SelfevaluationResource {
         log.debug("REST request to get all Selfevaluations by current user");
         return selfevaluationService.findByTeamAndCategory(teamId, SkillCategory.valueOf(category));
     }
+
+    /**
+     * {@code GET  /selfevaluations} : get All selfevaluations By Skill.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of selfevaluations in body.
+     */
+    @GetMapping("/selfevaluations/expert/{skillId}")
+    public List<Selfevaluation> getBySkillDesc(@PathVariable long skillId) {
+        log.debug("REST request to get all Selfevaluations by current user");
+        return selfevaluationService.findBySkillDesc(skillId);
+    }
 }

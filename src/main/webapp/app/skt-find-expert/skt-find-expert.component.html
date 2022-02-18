@@ -1,0 +1,40 @@
+<div>
+  <h2 id="page-heading" data-cy="SelfevaluationHeading">
+    <span jhiTranslate="skilltrackerApp.selfevaluation.home.title">Selfevaluations</span>
+
+    <div class="buttons">
+      <jhi-skt-find-expert-skill-dropdown style="float: left" (skillId)="getSkillId($event)"></jhi-skt-find-expert-skill-dropdown>
+      <button class="btn btn-info mr-2" (click)="loadAllBySkill()" [disabled]="isLoading" style="float: right">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="skilltrackerApp.selfevaluation.home.refreshListLabel">Refresh List</span>
+      </button>
+    </div>
+  </h2>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="selfevaluations?.length === 0">
+    <span jhiTranslate="skilltrackerApp.selfevaluation.home.notFound">No selfevaluations found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="selfevaluations && selfevaluations.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatingUser"></span></th>
+          <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.value"></span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let selfevaluation of selfevaluations; trackBy: trackId" data-cy="entityTable">
+          <td style="font-weight: bold">
+            {{ selfevaluation.evaluatingUser?.login }}
+          </td>
+          <td>
+            <jhi-skt-overview-indicator [selfevaluation]="selfevaluation"></jhi-skt-overview-indicator>
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

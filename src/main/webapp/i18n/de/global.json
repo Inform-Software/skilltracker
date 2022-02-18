@@ -12,6 +12,7 @@
         "team": "Team",
         "selfevaluation": "Selfevaluation",
         "overview": "Übersicht",
+        "findexpert": "Experten finden",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

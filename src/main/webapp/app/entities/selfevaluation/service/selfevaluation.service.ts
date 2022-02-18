@@ -53,6 +53,11 @@ export class SelfevaluationService {
     return this.http.get<ISelfevaluation[]>(`${this.resourceUrl}/${teamId}/${category}`, { params: options, observe: 'response' });
   }
 
+  findBySkillDesc(skillId: number, req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ISelfevaluation[]>(`${this.resourceUrl}/expert/${skillId}`, { params: options, observe: 'response' });
+  }
+
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

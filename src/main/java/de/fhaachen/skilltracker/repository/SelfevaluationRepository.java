@@ -20,4 +20,9 @@ public interface SelfevaluationRepository extends JpaRepository<Selfevaluation, 
         "select selfevaluation from Selfevaluation selfevaluation where selfevaluation.evaluatingUser in (select elements(team.teamMembers) from Team team where team.id =:teamId) and selfevaluation.evaluatedSkill.category =:category"
     )
     List<Selfevaluation> findByTeamAndCategory(@Param("teamId") long teamId, @Param("category") SkillCategory category);
+
+    @Query(
+        "select selfevaluation from Selfevaluation selfevaluation where selfevaluation.evaluatedSkill.id =:skillId order by selfevaluation.value desc"
+    )
+    List<Selfevaluation> findBySkillDesc(@Param("skillId") long skillId);
 }

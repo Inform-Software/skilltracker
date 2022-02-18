@@ -117,4 +117,15 @@ public class SelfevaluationService {
         log.debug("Request to get all Selfevaluations by Team");
         return selfevaluationRepository.findByTeamAndCategory(teamId, category);
     }
+
+    /**
+     * find By Skill.
+     *
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<Selfevaluation> findBySkillDesc(long skillId) {
+        log.debug("Request to get all Selfevaluations by Skill");
+        return selfevaluationRepository.findBySkillDesc(skillId);
+    }
 }

@@ -42,6 +42,14 @@
           </span>
         </a>
       </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="./skt-find-expert" (click)="collapseNavbar()">
+          <span>
+            <fa-icon icon="tasks"></fa-icon>
+            <span jhiTranslate="global.menu.entities.findexpert">Selfevaluation</span>
+          </span>
+        </a>
+      </li>
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
       <li
         *ngSwitchCase="true"

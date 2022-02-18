@@ -177,7 +177,7 @@ public class SkillResource {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of skills in body.
      */
-    @GetMapping("/skills/{category}")
+    @GetMapping("/skills/category/{category}")
     public List<Skill> findSkillsByCategory(@PathVariable String category) {
         log.debug("REST request to get all Skills by category");
         return skillService.findSkillsByCategory(SkillCategory.valueOf(category));
