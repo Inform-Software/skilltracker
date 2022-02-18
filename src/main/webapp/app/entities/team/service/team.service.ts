@@ -32,9 +32,9 @@ export class TeamService {
     return this.http.get<ITeam>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  findByUser(login: string, req?: any): Observable<EntityResponseType> {
+  findByUser(login: string, req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<ITeam>(`${this.resourceUrl}/user/${login}`, { params: options, observe: 'response' });
+    return this.http.get<ITeam[]>(`${this.resourceUrl}/user/${login}`, { params: options, observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

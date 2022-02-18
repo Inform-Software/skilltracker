@@ -20,6 +20,7 @@ export class SettingsComponent extends TeamComponent implements OnInit {
   success = false;
   languages = LANGUAGES;
   team?: ITeam;
+  currentTeam?: ITeam;
   settingsForm = this.fb.group({
     firstName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     lastName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
@@ -44,7 +45,10 @@ export class SettingsComponent extends TeamComponent implements OnInit {
     this.teamService.findByUser('test').subscribe(
       (res: HttpResponse<ITeam[]>) => {
         this.isLoading = false;
-        this.teams = res.body ?? [];
+        const teamHelper = res.body ?? [];
+        if (teamHelper.length > 0) {
+          this.currentTeam = teamHelper.pop();
+        }
       },
       () => {
         this.isLoading = false;
@@ -54,6 +58,7 @@ export class SettingsComponent extends TeamComponent implements OnInit {
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.loadTeam();
     this.accountService.identity().subscribe(account => {
       if (account) {
         this.settingsForm.patchValue({
@@ -76,6 +81,17 @@ export class SettingsComponent extends TeamComponent implements OnInit {
     this.account.email = this.settingsForm.get('email')!.value;
     this.account.langKey = this.settingsForm.get('langKey')!.value;
     this.team = this.settingsForm.get('teamKey')!.value;
+
+    if (this.currentTeam !== undefined) {
+      this.currentTeam.teamMembers?.forEach((element, index) => {
+        if (element === this.account) {
+          this.currentTeam?.teamMembers?.splice(index, 1);
+        }
+      });
+    }
+    this.teamService.update(this.currentTeam!).subscribe(() => {
+      this.success = true;
+    });
 
     this.team?.teamMembers?.push(this.account);
     this.teamService.update(this.team!).subscribe(() => {
