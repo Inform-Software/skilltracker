@@ -147,7 +147,7 @@
         <div class="form-group">
           <label for="teamKey" jhiTranslate="settings.form.team">team</label>
           <select class="form-control" id="teamKey" name="teamKey" formControlName="teamKey" data-cy="teamKey">
-            <option *ngFor="let team of teams" [value]="team">{{ team.name }}</option>
+            <option *ngFor="let team of teams" [ngValue]="team">{{ team.name }}</option>
           </select>
         </div>
 

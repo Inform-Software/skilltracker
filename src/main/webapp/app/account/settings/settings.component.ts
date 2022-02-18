@@ -9,6 +9,7 @@ import { ITeam, Team } from '../../entities/team/team.model';
 import { TeamComponent } from '../../entities/team/list/team.component';
 import { TeamService } from '../../entities/team/service/team.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'jhi-settings',
@@ -37,6 +38,20 @@ export class SettingsComponent extends TeamComponent implements OnInit {
     super(teamService, modalService);
   }
 
+  loadTeam(): void {
+    this.isLoading = true;
+
+    this.teamService.findByUser('test').subscribe(
+      (res: HttpResponse<ITeam[]>) => {
+        this.isLoading = false;
+        this.teams = res.body ?? [];
+      },
+      () => {
+        this.isLoading = false;
+      }
+    );
+  }
+
   ngOnInit(): void {
     super.ngOnInit();
     this.accountService.identity().subscribe(account => {
@@ -63,7 +78,9 @@ export class SettingsComponent extends TeamComponent implements OnInit {
     this.team = this.settingsForm.get('teamKey')!.value;
 
     this.team?.teamMembers?.push(this.account);
-    this.teamService.update(this.team!);
+    this.teamService.update(this.team!).subscribe(() => {
+      this.success = true;
+    });
 
     this.accountService.save(this.account).subscribe(() => {
       this.success = true;

@@ -91,6 +91,18 @@ public class TeamService {
     }
 
     /**
+     * Get team by user login.
+     *
+     * @param login the login of the entity.
+     * @return the entity.
+     */
+    @Transactional(readOnly = true)
+    public List<Team> findByUser(String login) {
+        log.debug("Request to get Team by User login : {}", login);
+        return teamRepository.findByUser(login);
+    }
+
+    /**
      * Delete the team by id.
      *
      * @param id the id of the entity.
