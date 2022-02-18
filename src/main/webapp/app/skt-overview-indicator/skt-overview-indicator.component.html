@@ -1,0 +1,7 @@
+<span id="wrapper">
+  <span *ngFor="let value of values">
+    <div class="rating">
+      <label [ngClass]="isChecked(value) ? 'checked' : 'unchecked'" id="{{ selfevaluation?.id }} + {{ value }}">{{ value }}</label>
+    </div>
+  </span>
+</span>

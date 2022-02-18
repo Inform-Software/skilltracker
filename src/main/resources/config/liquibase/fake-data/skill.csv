@@ -1,11 +1,11 @@
 id;category;name
-1;TOOLS;deposit
-2;VDS_V10;HDD Berkshire
-3;TECHNOLOGIE_ALLGEMEIN;Internal mesh hard
-4;TOOLS;deposit
-5;TECHNOLOGIE_ALLGEMEIN;Pizza Bacon
-6;TOOLS;Soft
-7;GB60_TECHNOLOGIE;orange
-8;TECHNOLOGIE_ALLGEMEIN;Granite calculate Kanada
-9;APPUSECASES;implement
-10;VDS_V10;Borders Iranian
+1;TOOLS;Jira
+2;VDS_V10;Tourplanung
+3;TECHNOLOGIE_ALLGEMEIN;Linux/Unix
+4;TOOLS;Git
+5;TECHNOLOGIE_ALLGEMEIN;QControl
+6;TOOLS;Confluence
+7;GB60_TECHNOLOGIE;JavaQueryHandler
+8;TECHNOLOGIE_ALLGEMEIN;Liquibase
+9;APPUSECASES;Cargo laden
+10;VDS_V10;VPC Gui

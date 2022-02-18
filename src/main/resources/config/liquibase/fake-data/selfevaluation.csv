@@ -3,9 +3,9 @@ id;value;want_to_improve;is_evaluated;evaluated_skill_id;evaluating_user_id
 2;9;true;false;2;2
 3;4;true;false;3;1
 4;3;false;false;4;1
-5;9;false;true;5;1
-6;1;true;true;6;1
-7;5;false;true;7;2
+5;9;false;false;5;1
+6;1;true;false;6;1
+7;5;false;false;7;2
 8;10;true;false;8;2
-9;2;false;true;9;2
-10;6;true;true;10;2
+9;2;false;false;9;2
+10;6;true;false;10;2

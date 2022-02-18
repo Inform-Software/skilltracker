@@ -1,0 +1,45 @@
+<jhi-skt-overview-sidebar (category)="getCategory($event)"></jhi-skt-overview-sidebar>
+
+<div>
+  <div>
+    <h2 id="page-heading" data-cy="SelfevaluationHeading">
+      <div jhiTranslate="skilltrackerApp.selfevaluation.home.title">Selfevaluations</div>
+
+      <div class="buttons">
+        <jhi-skt-overview-team-dropdown style="float: left" (teamId)="getTeamId($event)"></jhi-skt-overview-team-dropdown>
+        <button class="btn btn-info mr-2" (click)="loadAllByTeamAndCategory()" [disabled]="isLoading" style="float: right">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="skilltrackerApp.selfevaluation.home.refreshListLabel">Refresh List</span>
+        </button>
+      </div>
+    </h2>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="selfevaluations?.length === 0">
+      <span jhiTranslate="skilltrackerApp.selfevaluation.home.notFound">No selfevaluations found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="selfevaluations && selfevaluations.length > 0" style="width: 80%">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr>
+            <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.evaluatedSkill"></span></th>
+            <th scope="col"><span jhiTranslate="skilltrackerApp.selfevaluation.value"></span></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let selfevaluation of selfevaluations; trackBy: trackId" data-cy="entityTable">
+            <td>
+              <div *ngIf="selfevaluation.evaluatedSkill">
+                <a [routerLink]="['/skill', selfevaluation.evaluatedSkill?.id, 'view']">{{ selfevaluation.evaluatedSkill?.name }}</a>
+              </div>
+            </td>
+            <td>
+              <jhi-skt-overview-indicator [selfevaluation]="selfevaluation"></jhi-skt-overview-indicator>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

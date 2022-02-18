@@ -1,0 +1,40 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 15%;
+  position: fixed;
+  left: 0;
+  top: 65px;
+  background-color: #343a40;
+}
+
+li {
+  font-weight: bold;
+  color: white;
+  padding: 5px;
+  border-color: white;
+  border-width: 1px 0px 0px 0px;
+  border-style: solid;
+}
+
+li:last-child {
+  border-bottom-width: 1px;
+}
+
+span {
+  margin-bottom: 0;
+  word-wrap: break-word;
+}
+
+li:hover {
+  background-color: #fd8f3b;
+}
+
+.selected {
+  background-color: #0091a5ff;
+}

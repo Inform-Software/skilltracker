@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SktSelfevaluationComponent } from './skt-selfevaluation.component';
+import { SktOverviewComponent } from './skt-overview.component';
 
 @NgModule({
   declarations: [],
   imports: [
     RouterModule.forChild([
       {
-        path: 'skt-selfevaluation',
+        path: 'skt-overview',
         data: {},
-        component: SktSelfevaluationComponent,
+        component: SktOverviewComponent,
       },
     ]),
   ],
 })
-export class SktSelfevaluationRoutingModule {}
+export class SktOverviewRoutingModule {}

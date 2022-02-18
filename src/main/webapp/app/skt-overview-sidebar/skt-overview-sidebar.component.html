@@ -1,0 +1,9 @@
+<ul>
+  <li
+    *ngFor="let skillCategory of skillCategoryValues"
+    (click)="emitCategory(skillCategory)"
+    [ngClass]="{ selected: isClicked(skillCategory) }"
+  >
+    <span>{{ 'skilltrackerApp.SkillCategory.' + skillCategory | translate }}</span>
+  </li>
+</ul>

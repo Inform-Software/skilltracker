@@ -1,8 +1,10 @@
 package de.fhaachen.skilltracker.repository;
 
 import de.fhaachen.skilltracker.domain.Selfevaluation;
+import de.fhaachen.skilltracker.domain.enumeration.SkillCategory;
 import java.util.List;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,4 +15,9 @@ import org.springframework.stereotype.Repository;
 public interface SelfevaluationRepository extends JpaRepository<Selfevaluation, Long> {
     @Query("select selfevaluation from Selfevaluation selfevaluation where selfevaluation.evaluatingUser.login = ?#{principal.username}")
     List<Selfevaluation> findByEvaluatingUserIsCurrentUser();
+
+    @Query(
+        "select selfevaluation from Selfevaluation selfevaluation where selfevaluation.evaluatingUser in (select elements(team.teamMembers) from Team team where team.id =:teamId) and selfevaluation.evaluatedSkill.category =:category"
+    )
+    List<Selfevaluation> findByTeamAndCategory(@Param("teamId") long teamId, @Param("category") SkillCategory category);
 }

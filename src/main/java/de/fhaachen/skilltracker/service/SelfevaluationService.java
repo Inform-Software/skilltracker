@@ -1,6 +1,7 @@
 package de.fhaachen.skilltracker.service;
 
 import de.fhaachen.skilltracker.domain.Selfevaluation;
+import de.fhaachen.skilltracker.domain.enumeration.SkillCategory;
 import de.fhaachen.skilltracker.repository.SelfevaluationRepository;
 import java.util.List;
 import java.util.Optional;
@@ -104,5 +105,16 @@ public class SelfevaluationService {
     public void delete(Long id) {
         log.debug("Request to delete Selfevaluation : {}", id);
         selfevaluationRepository.deleteById(id);
+    }
+
+    /**
+     * find By Team.
+     *
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<Selfevaluation> findByTeamAndCategory(long teamId, SkillCategory category) {
+        log.debug("Request to get all Selfevaluations by Team");
+        return selfevaluationRepository.findByTeamAndCategory(teamId, category);
     }
 }

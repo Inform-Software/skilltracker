@@ -1,6 +1,8 @@
 package de.fhaachen.skilltracker.web.rest;
 
+import de.fhaachen.skilltracker.domain.Selfevaluation;
 import de.fhaachen.skilltracker.domain.Skill;
+import de.fhaachen.skilltracker.domain.enumeration.SkillCategory;
 import de.fhaachen.skilltracker.repository.SkillRepository;
 import de.fhaachen.skilltracker.service.SkillService;
 import de.fhaachen.skilltracker.web.rest.errors.BadRequestAlertException;
@@ -168,5 +170,16 @@ public class SkillResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     * {@code GET  /skills} : get All skills By category.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of skills in body.
+     */
+    @GetMapping("/skills/{category}")
+    public List<Skill> findSkillsByCategory(@PathVariable String category) {
+        log.debug("REST request to get all Skills by category");
+        return skillService.findSkillsByCategory(SkillCategory.valueOf(category));
     }
 }

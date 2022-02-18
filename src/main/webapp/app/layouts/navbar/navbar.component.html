@@ -34,6 +34,14 @@
           </span>
         </a>
       </li>
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="./skt-overview" (click)="collapseNavbar()">
+          <span>
+            <fa-icon icon="tasks"></fa-icon>
+            <span jhiTranslate="global.menu.entities.overview">Selfevaluation</span>
+          </span>
+        </a>
+      </li>
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
       <li
         *ngSwitchCase="true"
