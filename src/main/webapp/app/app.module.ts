@@ -39,6 +39,7 @@ import { SktOverviewTeamDropdownComponent } from './skt-overview-team-dropdown/s
 import { SktFindExpertComponent } from './skt-find-expert/skt-find-expert.component';
 import { sktFindExpertRoutingModule } from './skt-find-expert/skt-find-expert.routing.module';
 import { SktFindExpertSkillDropdownComponent } from './skt-find-expert-skill-dropdown/skt-find-expert-skill-dropdown.component';
+import { SktOverviewSingleSkillTableComponent } from './skt-overview-single-skill-table/skt-overview-single-skill-table.component';
 
 @NgModule({
   imports: [
@@ -89,6 +90,7 @@ import { SktFindExpertSkillDropdownComponent } from './skt-find-expert-skill-dro
     SktOverviewTeamDropdownComponent,
     SktFindExpertComponent,
     SktFindExpertSkillDropdownComponent,
+    SktOverviewSingleSkillTableComponent,
   ],
   bootstrap: [MainComponent],
 })

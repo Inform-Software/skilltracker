@@ -198,10 +198,10 @@ public class SelfevaluationResource {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of selfevaluations in body.
      */
-    @GetMapping("/selfevaluations/{teamId}/{category}")
-    public List<Selfevaluation> getByTeamAndCategory(@PathVariable long teamId, @PathVariable String category) {
+    @GetMapping("/selfevaluations/teamAndSkill/{teamId}/{skillId}")
+    public List<Selfevaluation> getByTeamAndSkill(@PathVariable long teamId, @PathVariable long skillId) {
         log.debug("REST request to get all Selfevaluations by current user");
-        return selfevaluationService.findByTeamAndCategory(teamId, SkillCategory.valueOf(category));
+        return selfevaluationService.findByTeamAndSkill(teamId, skillId);
     }
 
     /**

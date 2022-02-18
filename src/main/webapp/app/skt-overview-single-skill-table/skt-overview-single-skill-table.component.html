@@ -1,0 +1,18 @@
+<div class="table-responsive tableSettings" id="entities" *ngIf="selfevaluations && selfevaluations.length > 0">
+  <div class="headerSettings">
+    {{ skillName }}
+  </div>
+  <table class="table table-striped" aria-describedby="page-heading">
+    <tbody>
+      <tr *ngFor="let selfevaluation of selfevaluations; trackBy: trackId" data-cy="entityTable">
+        <td style="font-weight: bold; width: 20%">
+          {{ selfevaluation.evaluatingUser?.login }}
+        </td>
+        <td>
+          <jhi-skt-overview-indicator [selfevaluation]="selfevaluation"></jhi-skt-overview-indicator>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

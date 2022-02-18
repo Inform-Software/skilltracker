@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Long> {
-    @Query("select skill from Skill skill")
+    @Query("select distinct (skill) from Skill skill where skill.category=:category")
     List<Skill> findSkillsByCategory(@Param("category") SkillCategory category);
 }

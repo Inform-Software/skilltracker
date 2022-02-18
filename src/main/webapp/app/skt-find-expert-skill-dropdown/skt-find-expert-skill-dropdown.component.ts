@@ -8,7 +8,6 @@ import { SkillComponent } from '../entities/skill/list/skill.component';
 })
 export class SktFindExpertSkillDropdownComponent extends SkillComponent {
   @Output() skillId: EventEmitter<number> = new EventEmitter<number>();
-  values: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   emitSkill(event: any): void {
     this.skillId.emit(event.target.value);

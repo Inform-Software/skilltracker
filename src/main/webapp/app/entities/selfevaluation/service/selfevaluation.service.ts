@@ -48,14 +48,20 @@ export class SelfevaluationService {
     return this.http.get<ISelfevaluation[]>(this.resourceUrl + '/currentuser', { params: options, observe: 'response' });
   }
 
-  findByTeamAndCategory(teamId: number, category: string, req?: any): Observable<EntityArrayResponseType> {
+  findByTeamAndSkill(teamId: number, skillId: number, req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<ISelfevaluation[]>(`${this.resourceUrl}/${teamId}/${category}`, { params: options, observe: 'response' });
+    return this.http.get<ISelfevaluation[]>(`${this.resourceUrl}/teamAndSkill/${teamId}/${skillId}`, {
+      params: options,
+      observe: 'response',
+    });
   }
 
   findBySkillDesc(skillId: number, req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<ISelfevaluation[]>(`${this.resourceUrl}/expert/${skillId}`, { params: options, observe: 'response' });
+    return this.http.get<ISelfevaluation[]>(`${this.resourceUrl}/expert/${skillId}`, {
+      params: options,
+      observe: 'response',
+    });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
