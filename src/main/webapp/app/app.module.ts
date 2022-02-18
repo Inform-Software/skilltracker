@@ -36,6 +36,9 @@ import { SktOverviewRoutingModule } from './skt-overview/skt-overview.routing.mo
 import { SktOverviewIndicatorComponent } from './skt-overview-indicator/skt-overview-indicator.component';
 import { SktOverviewSidebarComponent } from './skt-overview-sidebar/skt-overview-sidebar.component';
 import { SktOverviewTeamDropdownComponent } from './skt-overview-team-dropdown/skt-overview-team-dropdown.component';
+import { SktFindExpertComponent } from './skt-find-expert/skt-find-expert.component';
+import { sktFindExpertRoutingModule } from './skt-find-expert/skt-find-expert.routing.module';
+import { SktFindExpertSkillDropdownComponent } from './skt-find-expert-skill-dropdown/skt-find-expert-skill-dropdown.component';
 
 @NgModule({
   imports: [
@@ -44,6 +47,7 @@ import { SktOverviewTeamDropdownComponent } from './skt-overview-team-dropdown/s
     HomeModule,
     SktSelfevaluationRoutingModule,
     SktOverviewRoutingModule,
+    sktFindExpertRoutingModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     EntityRoutingModule,
     AppRoutingModule,
@@ -83,6 +87,8 @@ import { SktOverviewTeamDropdownComponent } from './skt-overview-team-dropdown/s
     SktOverviewIndicatorComponent,
     SktOverviewSidebarComponent,
     SktOverviewTeamDropdownComponent,
+    SktFindExpertComponent,
+    SktFindExpertSkillDropdownComponent,
   ],
   bootstrap: [MainComponent],
 })
