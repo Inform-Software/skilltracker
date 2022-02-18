@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { ISkill, getSkillIdentifier } from '../skill.model';
+import { ISelfevaluation } from '../../selfevaluation/selfevaluation.model';
 
 export type EntityResponseType = HttpResponse<ISkill>;
 export type EntityArrayResponseType = HttpResponse<ISkill[]>;
@@ -22,6 +23,11 @@ export class SkillService {
 
   update(skill: ISkill): Observable<EntityResponseType> {
     return this.http.put<ISkill>(`${this.resourceUrl}/${getSkillIdentifier(skill) as number}`, skill, { observe: 'response' });
+  }
+
+  findSkillsByCategory(category: string, req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ISkill[]>(`${this.resourceUrl}/${category}`, { params: options, observe: 'response' });
   }
 
   partialUpdate(skill: ISkill): Observable<EntityResponseType> {

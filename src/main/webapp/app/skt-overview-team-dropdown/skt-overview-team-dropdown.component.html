@@ -1,6 +1,6 @@
 <span class="box">
   <select (change)="emitTeam($event)">
-    <option value="" hidden>Wähle eine Team aus</option>
+    <option value="" hidden>Wähle ein Team aus</option>
     <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
   </select>
 </span>

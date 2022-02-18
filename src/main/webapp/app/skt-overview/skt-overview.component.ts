@@ -5,6 +5,8 @@ import { ISelfevaluation } from '../entities/selfevaluation/selfevaluation.model
 import { DataService } from '../Service/data.service';
 import { SelfevaluationService } from '../entities/selfevaluation/service/selfevaluation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SkillService } from '../entities/skill/service/skill.service';
+import { ISkill } from '../entities/skill/skill.model';
 
 @Component({
   selector: 'jhi-skt-overview',
@@ -14,8 +16,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class SktOverviewComponent extends SelfevaluationComponent implements OnInit, OnDestroy {
   teamId?: number;
   category?: string;
+  skills?: ISkill[];
 
-  constructor(protected selfevaluationService: SelfevaluationService, protected modalService: NgbModal, private data: DataService) {
+  constructor(
+    protected selfevaluationService: SelfevaluationService,
+    protected modalService: NgbModal,
+    private data: DataService,
+    private skillService: SkillService
+  ) {
     super(selfevaluationService, modalService);
   }
 
@@ -33,9 +41,24 @@ export class SktOverviewComponent extends SelfevaluationComponent implements OnI
     );
   }
 
+  loadSkillsByCategory(): void {
+    this.isLoading = true;
+
+    this.skillService.findSkillsByCategory(this.category!).subscribe(
+      (res: HttpResponse<ISkill[]>) => {
+        this.isLoading = false;
+        this.skills = res.body ?? [];
+      },
+      () => {
+        this.isLoading = false;
+      }
+    );
+  }
+
   ngOnInit(): void {
     this.loadAllByTeamAndCategory();
     this.data.setDisplay(true);
+    this.loadSkillsByCategory();
   }
 
   ngOnDestroy(): void {

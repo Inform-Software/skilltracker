@@ -36,6 +36,7 @@ import { SktOverviewRoutingModule } from './skt-overview/skt-overview.routing.mo
 import { SktOverviewIndicatorComponent } from './skt-overview-indicator/skt-overview-indicator.component';
 import { SktOverviewSidebarComponent } from './skt-overview-sidebar/skt-overview-sidebar.component';
 import { SktOverviewTeamDropdownComponent } from './skt-overview-team-dropdown/skt-overview-team-dropdown.component';
+import { SktFindexpertComponent } from './skt-findexpert/skt-findexpert.component';
 
 @NgModule({
   imports: [
@@ -83,6 +84,7 @@ import { SktOverviewTeamDropdownComponent } from './skt-overview-team-dropdown/s
     SktOverviewIndicatorComponent,
     SktOverviewSidebarComponent,
     SktOverviewTeamDropdownComponent,
+    SktFindexpertComponent,
   ],
   bootstrap: [MainComponent],
 })
