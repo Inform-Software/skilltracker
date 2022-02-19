@@ -42,7 +42,7 @@ export class SettingsComponent extends TeamComponent implements OnInit {
   loadTeam(): void {
     this.isLoading = true;
 
-    this.teamService.findByUser('test').subscribe(
+    this.teamService.findByUser(this.account.login).subscribe(
       (res: HttpResponse<ITeam[]>) => {
         this.isLoading = false;
         const teamHelper = res.body ?? [];
@@ -58,7 +58,6 @@ export class SettingsComponent extends TeamComponent implements OnInit {
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.loadTeam();
     this.accountService.identity().subscribe(account => {
       if (account) {
         this.settingsForm.patchValue({
@@ -67,9 +66,12 @@ export class SettingsComponent extends TeamComponent implements OnInit {
           email: account.email,
           langKey: account.langKey,
         });
-
         this.account = account;
       }
+    });
+    this.loadTeam();
+    this.settingsForm.patchValue({
+      teamKey: this.currentTeam?.name,
     });
   }
 
@@ -83,15 +85,11 @@ export class SettingsComponent extends TeamComponent implements OnInit {
     this.team = this.settingsForm.get('teamKey')!.value;
 
     if (this.currentTeam !== undefined) {
-      this.currentTeam.teamMembers?.forEach((element, index) => {
-        if (element === this.account) {
-          this.currentTeam?.teamMembers?.splice(index, 1);
-        }
+      this.currentTeam.teamMembers = this.currentTeam.teamMembers?.filter(team => team.login !== this.account.login);
+      this.teamService.update(this.currentTeam).subscribe(() => {
+        this.success = true;
       });
     }
-    this.teamService.update(this.currentTeam!).subscribe(() => {
-      this.success = true;
-    });
 
     this.team?.teamMembers?.push(this.account);
     this.teamService.update(this.team!).subscribe(() => {
