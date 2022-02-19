@@ -21,13 +21,14 @@ export class SettingsComponent extends TeamComponent implements OnInit {
   languages = LANGUAGES;
   team?: ITeam;
   currentTeam?: ITeam;
+  changedTeam?: ITeam;
   settingsForm = this.fb.group({
     firstName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     lastName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     email: [undefined, [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
-    teamKey: [undefined],
     langKey: [undefined],
   });
+  selectedTeam?: ITeam;
 
   constructor(
     private accountService: AccountService,
@@ -70,9 +71,6 @@ export class SettingsComponent extends TeamComponent implements OnInit {
       }
     });
     this.loadTeam();
-    this.settingsForm.patchValue({
-      teamKey: this.currentTeam?.name,
-    });
   }
 
   save(): void {
@@ -82,7 +80,7 @@ export class SettingsComponent extends TeamComponent implements OnInit {
     this.account.lastName = this.settingsForm.get('lastName')!.value;
     this.account.email = this.settingsForm.get('email')!.value;
     this.account.langKey = this.settingsForm.get('langKey')!.value;
-    this.team = this.settingsForm.get('teamKey')!.value;
+    this.team = this.selectedTeam;
 
     if (this.currentTeam !== undefined) {
       this.currentTeam.teamMembers = this.currentTeam.teamMembers?.filter(team => team.login !== this.account.login);
@@ -105,5 +103,10 @@ export class SettingsComponent extends TeamComponent implements OnInit {
         this.translateService.use(this.account.langKey);
       }
     });
+  }
+
+  changer(event: any): void {
+    this.selectedTeam = event.target.value;
+    const test = this.selectedTeam?.name;
   }
 }
