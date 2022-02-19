@@ -106,7 +106,7 @@ export class SettingsComponent extends TeamComponent implements OnInit {
   }
 
   changer(event: any): void {
-    this.selectedTeam = event.target.value;
+    this.selectedTeam = event;
     const test = this.selectedTeam?.name;
   }
 }
