@@ -21,14 +21,13 @@ export class SettingsComponent extends TeamComponent implements OnInit {
   languages = LANGUAGES;
   team?: ITeam;
   currentTeam?: ITeam;
-  changedTeam?: ITeam;
+  selectedTeam?: ITeam;
   settingsForm = this.fb.group({
     firstName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     lastName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     email: [undefined, [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     langKey: [undefined],
   });
-  selectedTeam?: ITeam;
 
   constructor(
     private accountService: AccountService,
@@ -49,6 +48,7 @@ export class SettingsComponent extends TeamComponent implements OnInit {
         const teamHelper = res.body ?? [];
         if (teamHelper.length > 0) {
           this.currentTeam = teamHelper.pop();
+          this.selectedTeam = this.currentTeam;
         }
       },
       () => {
@@ -107,6 +107,5 @@ export class SettingsComponent extends TeamComponent implements OnInit {
 
   changer(event: any): void {
     this.selectedTeam = event;
-    const test = this.selectedTeam?.name;
   }
 }

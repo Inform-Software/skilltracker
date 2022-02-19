@@ -146,8 +146,15 @@
 
         <div class="form-group">
           <label for="teamKey" jhiTranslate="settings.form.team">team</label>
-          <select class="form-control" id="teamKey" data-cy="teamKey" [(ngModel)]="currentTeam" (ngModelChange)="changer($event)">
-            <option *ngIf="currentTeam" [ngValue]="currentTeam" [selected]="true">{{ currentTeam?.name }}</option>
+          <select
+            class="form-control"
+            id="teamKey"
+            data-cy="teamKey"
+            [(ngModel)]="selectedTeam"
+            (ngModelChange)="changer($event)"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option *ngIf="currentTeam" [ngValue]="currentTeam">{{ currentTeam?.name }}</option>
             <ng-container *ngFor="let team of teams">
               <option *ngIf="team.id !== currentTeam?.id" [ngValue]="team">{{ team.name }}</option>
             </ng-container>
