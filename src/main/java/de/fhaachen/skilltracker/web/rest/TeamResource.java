@@ -156,6 +156,18 @@ public class TeamResource {
     }
 
     /**
+     * {@code GET  /teams/user/:login} : get team by user login.
+     *
+     * @param login the login of the team to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the team, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/teams/user/{login}")
+    public List<Team> findByUser(@PathVariable String login) {
+        log.debug("REST request to get Team by User login : {}", login);
+        return teamService.findByUser(login);
+    }
+
+    /**
      * {@code DELETE  /teams/:id} : delete the "id" team.
      *
      * @param id the id of the team to delete.
