@@ -2,10 +2,10 @@ package de.fhaachen.skilltracker.service;
 
 import de.fhaachen.skilltracker.config.Constants;
 import de.fhaachen.skilltracker.domain.Authority;
+import de.fhaachen.skilltracker.domain.Selfevaluation;
+import de.fhaachen.skilltracker.domain.Skill;
 import de.fhaachen.skilltracker.domain.User;
-import de.fhaachen.skilltracker.repository.AuthorityRepository;
-import de.fhaachen.skilltracker.repository.PersistentTokenRepository;
-import de.fhaachen.skilltracker.repository.UserRepository;
+import de.fhaachen.skilltracker.repository.*;
 import de.fhaachen.skilltracker.security.AuthoritiesConstants;
 import de.fhaachen.skilltracker.security.SecurityUtils;
 import de.fhaachen.skilltracker.service.dto.AdminUserDTO;
@@ -42,16 +42,24 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
+    private final SelfevaluationRepository selfevaluationRepository;
+
+    private final SkillRepository skillRepository;
+
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
         PersistentTokenRepository persistentTokenRepository,
-        AuthorityRepository authorityRepository
+        AuthorityRepository authorityRepository,
+        SelfevaluationRepository selfevaluationRepository,
+        SkillRepository skillRepository
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.persistentTokenRepository = persistentTokenRepository;
         this.authorityRepository = authorityRepository;
+        this.selfevaluationRepository = selfevaluationRepository;
+        this.skillRepository = skillRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -171,6 +179,16 @@ public class UserService {
             user.setAuthorities(authorities);
         }
         userRepository.save(user);
+        List<Skill> skills = skillRepository.findAll();
+        for (Skill skill : skills) {
+            Selfevaluation selfevaluation = new Selfevaluation();
+            selfevaluation.setValue(0);
+            selfevaluation.setIsEvaluated(false);
+            selfevaluation.setWantToImprove(false);
+            selfevaluation.setEvaluatingUser(user);
+            selfevaluation.setEvaluatedSkill(skill);
+            selfevaluationRepository.save(selfevaluation);
+        }
         log.debug("Created Information for User: {}", user);
         return user;
     }
@@ -317,6 +335,7 @@ public class UserService {
 
     /**
      * Gets a list of all the authorities.
+     *
      * @return a list of all the authorities.
      */
     @Transactional(readOnly = true)
