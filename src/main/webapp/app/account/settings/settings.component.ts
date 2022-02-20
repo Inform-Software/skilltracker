@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { LANGUAGES } from 'app/config/language.constants';
-import { ITeam, Team } from '../../entities/team/team.model';
+import { ITeam } from '../../entities/team/team.model';
 import { TeamComponent } from '../../entities/team/list/team.component';
 import { TeamService } from '../../entities/team/service/team.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -82,11 +82,8 @@ export class SettingsComponent extends TeamComponent implements OnInit {
     this.account.langKey = this.settingsForm.get('langKey')!.value;
     this.team = this.selectedTeam;
 
-    if (this.currentTeam !== undefined) {
-      this.currentTeam.teamMembers = this.currentTeam.teamMembers?.filter(team => team.login !== this.account.login);
-      this.teamService.update(this.currentTeam).subscribe(() => {
-        this.success = true;
-      });
+    if (this.currentTeam !== undefined && this.selectedTeam !== this.currentTeam) {
+      this.removeFromTeam(this.currentTeam);
     }
 
     this.team?.teamMembers?.push(this.account);
@@ -107,5 +104,12 @@ export class SettingsComponent extends TeamComponent implements OnInit {
 
   changer(event: any): void {
     this.selectedTeam = event;
+  }
+
+  private removeFromTeam(functionTeam: ITeam): void {
+    functionTeam.teamMembers = functionTeam.teamMembers?.filter(team => team.login !== this.account.login);
+    this.teamService.update(functionTeam).subscribe(() => {
+      this.success = true;
+    });
   }
 }
