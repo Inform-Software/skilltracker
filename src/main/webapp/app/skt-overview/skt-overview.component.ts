@@ -27,20 +27,6 @@ export class SktOverviewComponent extends SelfevaluationComponent implements OnI
     super(selfevaluationService, modalService);
   }
 
-  loadAllByTeamAndCategory(): void {
-    this.isLoading = true;
-
-    this.selfevaluationService.findByTeamAndCategory(this.teamId!, this.category!).subscribe(
-      (res: HttpResponse<ISelfevaluation[]>) => {
-        this.isLoading = false;
-        this.selfevaluations = res.body ?? [];
-      },
-      () => {
-        this.isLoading = false;
-      }
-    );
-  }
-
   loadSkillsByCategory(): void {
     this.isLoading = true;
 
@@ -56,9 +42,7 @@ export class SktOverviewComponent extends SelfevaluationComponent implements OnI
   }
 
   ngOnInit(): void {
-    this.loadAllByTeamAndCategory();
     this.data.setDisplay(true);
-    this.loadSkillsByCategory();
   }
 
   ngOnDestroy(): void {
@@ -67,11 +51,10 @@ export class SktOverviewComponent extends SelfevaluationComponent implements OnI
 
   getTeamId($event: number): void {
     this.teamId = $event;
-    this.loadAllByTeamAndCategory();
   }
 
   getCategory($event: string): void {
     this.category = $event;
-    this.loadAllByTeamAndCategory();
+    this.loadSkillsByCategory();
   }
 }

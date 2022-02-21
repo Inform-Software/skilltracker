@@ -7,7 +7,8 @@
       "lastname": "Nachname",
       "lastname.placeholder": "Ihr Nachname",
       "language": "Sprache",
-      "button": "Speichern"
+      "button": "Speichern",
+      "team": "Wähle dein Team"
     },
     "messages": {
       "error": {

@@ -8,7 +8,6 @@ import { TeamComponent } from '../entities/team/list/team.component';
 })
 export class SktOverviewTeamDropdownComponent extends TeamComponent {
   @Output() teamId: EventEmitter<number> = new EventEmitter<number>();
-  values: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   emitTeam(event: any): void {
     this.teamId.emit(event.target.value);

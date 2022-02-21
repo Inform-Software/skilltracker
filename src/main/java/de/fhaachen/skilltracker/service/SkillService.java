@@ -2,8 +2,11 @@ package de.fhaachen.skilltracker.service;
 
 import de.fhaachen.skilltracker.domain.Selfevaluation;
 import de.fhaachen.skilltracker.domain.Skill;
+import de.fhaachen.skilltracker.domain.User;
 import de.fhaachen.skilltracker.domain.enumeration.SkillCategory;
+import de.fhaachen.skilltracker.repository.SelfevaluationRepository;
 import de.fhaachen.skilltracker.repository.SkillRepository;
+import de.fhaachen.skilltracker.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,8 +25,14 @@ public class SkillService {
 
     private final SkillRepository skillRepository;
 
-    public SkillService(SkillRepository skillRepository) {
+    private final UserRepository userRepository;
+
+    private final SelfevaluationRepository selfevaluationRepository;
+
+    public SkillService(SkillRepository skillRepository, UserRepository userRepository, SelfevaluationRepository selfevaluationRepository) {
         this.skillRepository = skillRepository;
+        this.userRepository = userRepository;
+        this.selfevaluationRepository = selfevaluationRepository;
     }
 
     /**
@@ -34,7 +43,18 @@ public class SkillService {
      */
     public Skill save(Skill skill) {
         log.debug("Request to save Skill : {}", skill);
-        return skillRepository.save(skill);
+        Skill save = skillRepository.save(skill);
+        List<User> users = userRepository.findAll();
+        for (User user : users) {
+            Selfevaluation selfevaluation = new Selfevaluation();
+            selfevaluation.setValue(0);
+            selfevaluation.setIsEvaluated(false);
+            selfevaluation.setWantToImprove(false);
+            selfevaluation.setEvaluatingUser(user);
+            selfevaluation.setEvaluatedSkill(skill);
+            selfevaluationRepository.save(selfevaluation);
+        }
+        return save;
     }
 
     /**

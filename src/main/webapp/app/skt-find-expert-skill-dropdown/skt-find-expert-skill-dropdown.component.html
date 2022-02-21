@@ -1,0 +1,6 @@
+<span class="box">
+  <select (change)="emitSkill($event)">
+    <option value="" hidden>Wähle ein Skill aus</option>
+    <option *ngFor="let skills of skills" [value]="skills.id">{{ skills.name }}</option>
+  </select>
+</span>

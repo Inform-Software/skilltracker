@@ -27,7 +27,7 @@ export class SkillService {
 
   findSkillsByCategory(category: string, req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<ISkill[]>(`${this.resourceUrl}/${category}`, { params: options, observe: 'response' });
+    return this.http.get<ISkill[]>(`${this.resourceUrl}/category/${category}`, { params: options, observe: 'response' });
   }
 
   partialUpdate(skill: ISkill): Observable<EntityResponseType> {

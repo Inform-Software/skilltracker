@@ -144,6 +144,23 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label for="teamKey" jhiTranslate="settings.form.team">team</label>
+          <select
+            class="form-control"
+            id="teamKey"
+            data-cy="teamKey"
+            [(ngModel)]="selectedTeam"
+            (ngModelChange)="changer($event)"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option *ngIf="currentTeam" [ngValue]="currentTeam">{{ currentTeam?.name }}</option>
+            <ng-container *ngFor="let team of teams">
+              <option *ngIf="team.id !== currentTeam?.id" [ngValue]="team">{{ team.name }}</option>
+            </ng-container>
+          </select>
+        </div>
+
         <div class="form-group" *ngIf="languages && languages.length > 0">
           <label for="langKey" jhiTranslate="settings.form.language">Language</label>
           <select class="form-control" id="langKey" name="langKey" formControlName="langKey" data-cy="langKey">
