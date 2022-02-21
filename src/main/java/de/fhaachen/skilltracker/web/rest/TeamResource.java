@@ -194,8 +194,8 @@ public class TeamResource {
      * or with status {@code 500 (Internal Server Error)} if the team couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping(value = "/teams/removeUser/{login}/{team}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Team> removeUser(@NotNull @PathVariable String login, @NotNull @PathVariable Long teamId) {
+    @PatchMapping(value = "/teams/removeUser/{login}/{teamId}", consumes = { "application/json", "application/merge-patch+json" })
+    public ResponseEntity<Team> removeUser(@PathVariable String login, @PathVariable Long teamId) {
         log.debug("remove user from team : {}, {}", login, teamId);
         return ResponseUtil.wrapOrNotFound(teamService.removeUser(login, teamId));
     }
@@ -211,8 +211,8 @@ public class TeamResource {
      * or with status {@code 500 (Internal Server Error)} if the team couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping(value = "/teams/addUser/{login}/{team}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Team> addUser(@NotNull @PathVariable String login, @NotNull @PathVariable Long teamId) {
+    @PatchMapping(value = "/teams/addUser/{login}/{teamId}", consumes = { "application/json", "application/merge-patch+json" })
+    public ResponseEntity<Team> addUser(@PathVariable String login, @PathVariable Long teamId) {
         log.debug("add user from team : {}, {}", login, teamId);
         return ResponseUtil.wrapOrNotFound(teamService.addUser(login, teamId));
     }

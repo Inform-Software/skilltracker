@@ -25,7 +25,7 @@ export class TeamService {
   }
 
   removeUser(login: string, team: ITeam): Observable<EntityResponseType> {
-    return this.http.put<ITeam>(`${this.resourceUrl}/removeUser/${login}/${getTeamIdentifier(team) as number}`, team, {
+    return this.http.patch<ITeam>(`${this.resourceUrl}/removeUser/${login}/${getTeamIdentifier(team) as number}`, team, {
       observe: 'response',
     });
   }

@@ -125,14 +125,18 @@ public class TeamService {
      */
     public Optional<Team> removeUser(String userLogin, Long teamId) {
         log.debug("Request to remove User from a Team : {} , {}", teamId, userLogin);
-        Optional<Team> team = teamRepository.findById(teamId);
-        for (User user : team.get().getTeamMembers()) {
-            if (userLogin.equals(user.getLogin())) {
-                team.get().removeTeamMember(user);
-            }
-        }
-
-        return team.map(teamRepository::save);
+        return teamRepository
+            .findById(teamId)
+            .map(existingTeam -> {
+                for (User user : existingTeam.getTeamMembers()) {
+                    if (userLogin.equals(user.getLogin())) {
+                        existingTeam.removeTeamMember(user);
+                        break;
+                    }
+                }
+                return existingTeam;
+            })
+            .map(teamRepository::save);
     }
 
     /**
@@ -144,7 +148,7 @@ public class TeamService {
     public Optional<Team> addUser(String userLogin, Long teamId) {
         log.debug("Request to add User from a Team : {} , {}", teamId, userLogin);
         Optional<Team> team = teamRepository.findById(teamId);
-        team.get().addTeamMember(userRepository.findOneByLogin(userLogin).get());
+        team.ifPresent(value -> value.addTeamMember(userRepository.findOneByLogin(userLogin).get()));
         return team.map(teamRepository::save);
     }
 }
