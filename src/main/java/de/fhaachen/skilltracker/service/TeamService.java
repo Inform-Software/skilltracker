@@ -1,7 +1,9 @@
 package de.fhaachen.skilltracker.service;
 
 import de.fhaachen.skilltracker.domain.Team;
+import de.fhaachen.skilltracker.domain.User;
 import de.fhaachen.skilltracker.repository.TeamRepository;
+import de.fhaachen.skilltracker.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -22,8 +24,11 @@ public class TeamService {
 
     private final TeamRepository teamRepository;
 
-    public TeamService(TeamRepository teamRepository) {
+    private final UserRepository userRepository;
+
+    public TeamService(TeamRepository teamRepository, UserRepository userRepository) {
         this.teamRepository = teamRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -110,5 +115,40 @@ public class TeamService {
     public void delete(Long id) {
         log.debug("Request to delete Team : {}", id);
         teamRepository.deleteById(id);
+    }
+
+    /**
+     * remove user from team.
+     *
+     * @param userLogin, teamId
+     * @return the persisted entity.
+     */
+    public Optional<Team> removeUser(String userLogin, Long teamId) {
+        log.debug("Request to remove User from a Team : {} , {}", teamId, userLogin);
+        return teamRepository
+            .findById(teamId)
+            .map(existingTeam -> {
+                for (User user : existingTeam.getTeamMembers()) {
+                    if (userLogin.equals(user.getLogin())) {
+                        existingTeam.removeTeamMember(user);
+                        break;
+                    }
+                }
+                return existingTeam;
+            })
+            .map(teamRepository::save);
+    }
+
+    /**
+     * add user to team.
+     *
+     * @param userLogin, teamId
+     * @return the persisted entity.
+     */
+    public Optional<Team> addUser(String userLogin, Long teamId) {
+        log.debug("Request to add User from a Team : {} , {}", teamId, userLogin);
+        Optional<Team> team = teamRepository.findById(teamId);
+        team.ifPresent(value -> value.addTeamMember(userRepository.findOneByLogin(userLogin).get()));
+        return team.map(teamRepository::save);
     }
 }

@@ -65,7 +65,7 @@ public class TeamResource {
     /**
      * {@code PUT  /teams/:id} : Updates an existing team.
      *
-     * @param id the id of the team to save.
+     * @param id   the id of the team to save.
      * @param team the team to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated team,
      * or with status {@code 400 (Bad Request)} if the team is not valid,
@@ -97,7 +97,7 @@ public class TeamResource {
     /**
      * {@code PATCH  /teams/:id} : Partial updates given fields of an existing team, field will ignore if it is null
      *
-     * @param id the id of the team to save.
+     * @param id   the id of the team to save.
      * @param team the team to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated team,
      * or with status {@code 400 (Bad Request)} if the team is not valid,
@@ -181,5 +181,39 @@ public class TeamResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     * {@code PATCH  /teams/:id} : Partial updates given fields of an existing team, field will ignore if it is null
+     *
+     * @param login
+     * @param teamId
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated team,
+     * or with status {@code 400 (Bad Request)} if the team is not valid,
+     * or with status {@code 404 (Not Found)} if the team is not found,
+     * or with status {@code 500 (Internal Server Error)} if the team couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PatchMapping(value = "/teams/removeUser/{login}/{teamId}", consumes = { "application/json", "application/merge-patch+json" })
+    public ResponseEntity<Team> removeUser(@PathVariable String login, @PathVariable Long teamId) {
+        log.debug("remove user from team : {}, {}", login, teamId);
+        return ResponseUtil.wrapOrNotFound(teamService.removeUser(login, teamId));
+    }
+
+    /**
+     * {@code PATCH  /teams/:id} : Partial updates given fields of an existing team, field will ignore if it is null
+     *
+     * @param login
+     * @param teamId
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated team,
+     * or with status {@code 400 (Bad Request)} if the team is not valid,
+     * or with status {@code 404 (Not Found)} if the team is not found,
+     * or with status {@code 500 (Internal Server Error)} if the team couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PatchMapping(value = "/teams/addUser/{login}/{teamId}", consumes = { "application/json", "application/merge-patch+json" })
+    public ResponseEntity<Team> addUser(@PathVariable String login, @PathVariable Long teamId) {
+        log.debug("add user from team : {}, {}", login, teamId);
+        return ResponseUtil.wrapOrNotFound(teamService.addUser(login, teamId));
     }
 }
