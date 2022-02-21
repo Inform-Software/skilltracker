@@ -64,7 +64,7 @@ public class UserService {
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
-        return userRepository
+        Optional<User> retUser = userRepository
             .findOneByActivationKey(key)
             .map(user -> {
                 // activate given user for the registration key.
@@ -73,6 +73,8 @@ public class UserService {
                 log.debug("Activated user: {}", user);
                 return user;
             });
+        createSelfevaluation(retUser.get());
+        return retUser;
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
@@ -179,6 +181,12 @@ public class UserService {
             user.setAuthorities(authorities);
         }
         userRepository.save(user);
+        createSelfevaluation(user);
+        log.debug("Created Information for User: {}", user);
+        return user;
+    }
+
+    private void createSelfevaluation(User user) {
         List<Skill> skills = skillRepository.findAll();
         for (Skill skill : skills) {
             Selfevaluation selfevaluation = new Selfevaluation();
@@ -189,8 +197,6 @@ public class UserService {
             selfevaluation.setEvaluatedSkill(skill);
             selfevaluationRepository.save(selfevaluation);
         }
-        log.debug("Created Information for User: {}", user);
-        return user;
     }
 
     /**
