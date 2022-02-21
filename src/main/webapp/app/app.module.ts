@@ -14,7 +14,6 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import './config/dayjs';
 import { SharedModule } from 'app/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeModule } from './home/home.module';
 import { EntityRoutingModule } from './entities/entity-routing.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { NgbDateDayjsAdapter } from './config/datepicker-adapter';
@@ -40,12 +39,13 @@ import { SktFindExpertComponent } from './skt-find-expert/skt-find-expert.compon
 import { sktFindExpertRoutingModule } from './skt-find-expert/skt-find-expert.routing.module';
 import { SktFindExpertSkillDropdownComponent } from './skt-find-expert-skill-dropdown/skt-find-expert-skill-dropdown.component';
 import { SktOverviewSingleSkillTableComponent } from './skt-overview-single-skill-table/skt-overview-single-skill-table.component';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     SharedModule,
-    HomeModule,
+    LoginModule,
     SktSelfevaluationRoutingModule,
     SktOverviewRoutingModule,
     sktFindExpertRoutingModule,

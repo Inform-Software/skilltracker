@@ -1,5 +1,6 @@
 <nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
-  <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
+  <a class="navbar-brand logo">
+    <!--routerLink="/" (click)="collapseNavbar() -->
     <span class="logo-img"></span>
     <span jhiTranslate="global.title" class="navbar-title">Skilltracker</span>
     <span class="navbar-version">{{ version }}</span>
@@ -18,14 +19,16 @@
   </a>
   <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
     <ul class="navbar-nav ml-auto">
+      <!--
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-          <span>
+           <span>
             <fa-icon icon="home"></fa-icon>
             <span jhiTranslate="global.menu.home">Home</span>
           </span>
         </a>
       </li>
+      -->
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link" routerLink="./skt-selfevaluation" (click)="collapseNavbar()">
           <span>
