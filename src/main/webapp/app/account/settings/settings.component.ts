@@ -83,11 +83,12 @@ export class SettingsComponent extends TeamComponent implements OnInit {
     this.team = this.selectedTeam;
 
     if (this.currentTeam !== undefined && this.selectedTeam !== this.currentTeam) {
-      this.removeFromTeam(this.currentTeam);
+      this.teamService.removeUser(this.account.login, this.currentTeam).subscribe(() => {
+        this.success = true;
+      });
     }
 
-    this.team?.teamMembers?.push(this.account);
-    this.teamService.update(this.team!).subscribe(() => {
+    this.teamService.addUser(this.account.login, this.team!).subscribe(() => {
       this.success = true;
     });
 
@@ -104,12 +105,5 @@ export class SettingsComponent extends TeamComponent implements OnInit {
 
   changer(event: any): void {
     this.selectedTeam = event;
-  }
-
-  private removeFromTeam(functionTeam: ITeam): void {
-    functionTeam.teamMembers = functionTeam.teamMembers?.filter(team => team.login !== this.account.login);
-    this.teamService.update(functionTeam).subscribe(() => {
-      this.success = true;
-    });
   }
 }

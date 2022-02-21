@@ -24,6 +24,18 @@ export class TeamService {
     return this.http.put<ITeam>(`${this.resourceUrl}/${getTeamIdentifier(team) as number}`, team, { observe: 'response' });
   }
 
+  removeUser(login: string, team: ITeam): Observable<EntityResponseType> {
+    return this.http.put<ITeam>(`${this.resourceUrl}/removeUser/${login}/${getTeamIdentifier(team) as number}`, team, {
+      observe: 'response',
+    });
+  }
+
+  addUser(login: string, team: ITeam): Observable<EntityResponseType> {
+    return this.http.patch<ITeam>(`${this.resourceUrl}/addUser/${login}/${getTeamIdentifier(team) as number}`, team, {
+      observe: 'response',
+    });
+  }
+
   partialUpdate(team: ITeam): Observable<EntityResponseType> {
     return this.http.patch<ITeam>(`${this.resourceUrl}/${getTeamIdentifier(team) as number}`, team, { observe: 'response' });
   }
