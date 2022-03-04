@@ -44,6 +44,9 @@
     "languages": ["de", "en"],
     "enableGradleEnterprise": false,
     "lastLiquibaseTimestamp": 1644482341000,
-    "entities": ["Skill", "Selfevaluation", "Team"]
+    "entities": ["Skill", "Selfevaluation", "Team"],
+    "herokuAppName": "inform-skilltracker",
+    "herokuDeployType": "git",
+    "herokuJavaVersion": "11"
   }
 }
