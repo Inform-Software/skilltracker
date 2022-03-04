@@ -45,7 +45,7 @@
     -->
     <changeSet id="20220210083132-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/selfevaluation.csv"
+                  file="config/liquibase/data/selfevaluation.csv"
                   separator=";"
                   tableName="selfevaluation"
                   usePreparedStatements="true">
